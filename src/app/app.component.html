@@ -1,3 +1,38 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu contentId="contenido">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menú</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list lines="none">
+        <ion-menu-toggle>
+          <ion-item button routerLink="home" routerLinkActive="seleccionado">
+            <ion-icon name="home" slot="start"></ion-icon>
+            <ion-label>Inicio</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item button routerLink="productos" routerLinkActive="seleccionado">
+            <ion-icon name="bag-add" slot="start"></ion-icon>
+            <ion-label>Productos</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item button routerLink="usuario" routerLinkActive="seleccionado">
+            <ion-icon name="people-circle-Outline" slot="start"></ion-icon>
+            <ion-label>Usuario</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item button routerLink="pedido" routerLinkActive="seleccionado">
+            <ion-icon name="create-Sharp" slot="start"></ion-icon>
+            <ion-label>Pedido</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="contenido"></ion-router-outlet>
 </ion-app>
