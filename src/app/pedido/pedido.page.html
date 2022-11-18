@@ -4,9 +4,21 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>pedido</ion-title>
+    <ion-progress-bar *ngIf="cargandoPedido" type="indeterminate"></ion-progress-bar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-refresher slot="fixed" (ionRefresh)="cargarPedido()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <ion-item *ngFor="let pedido of listaPedido">
+      <ion-note slot="start">{{ pedido.idpedido }}</ion-note>
+      <ion-label>
+        <h2>{{ pedido.fechaPedido }}</h2>
+        <p>{{ pedido.fechaEntrega }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

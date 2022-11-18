@@ -4,9 +4,21 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>productos</ion-title>
+    <ion-progress-bar *ngIf="cargandoProductos" type="indeterminate"></ion-progress-bar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-refresher slot="fixed" (ionRefresh)="cargarProductos()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+<ion-list>
+  <ion-item *ngFor="let productos of listaProductos">
+    <ion-note slot="start">{{ productos.idproducto }}</ion-note>
+<ion-label>
+  <h2>{{ productos.nombrePro }}</h2>
+  <p>{{ productos.precioPro }}</p>
+</ion-label>
+  </ion-item>
+</ion-list>
 </ion-content>

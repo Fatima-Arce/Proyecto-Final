@@ -4,9 +4,21 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>usuario</ion-title>
+    <ion-progress-bar *ngIf="cargandoUsuario" type="indeterminate"></ion-progress-bar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-refresher slot="fixed" (ionRefresh)="cargarUsuario()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+<ion-list>
+  <ion-item *ngFor="let usuario of listaUsuario">
+    <ion-note slot="start">{{ usuario.idusuario }}</ion-note>
+<ion-label>
+  <h2>{{ usuario.nombre }}</h2>
+  <p>{{ usuario.apellido }}</p>
+</ion-label>
+  </ion-item>
+</ion-list>
 </ion-content>
