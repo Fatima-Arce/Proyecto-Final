@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'pedido',
     loadChildren: () => import('./pedido/pedido.module').then( m => m.PedidoPageModule)
   },
+  {
+    path: 'detalles-pedido',
+    loadChildren: () => import('./detalles-pedido/detalles-pedido.module').then( m => m.DetallesPedidoPageModule)
+  },
 ];
 
 @NgModule({

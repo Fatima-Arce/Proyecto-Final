@@ -14,6 +14,7 @@ export class ProductosPage implements OnInit {
 
   public listaProductos: Productos[] = [];
   public cargandoProductos: boolean = false;
+  public modalVisible: boolean = false;
 
   constructor(
     private servicioProductos: ProductosService,
@@ -44,6 +45,10 @@ export class ProductosPage implements OnInit {
         }).then(toast => toast.present());
       }
     });
+  }
+
+  public nuevo(){
+    this.modalVisible = true;
   }
 
 }

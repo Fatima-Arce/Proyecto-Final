@@ -7,6 +7,7 @@ import { IonicModule, ToastController } from '@ionic/angular';
 import { PedidoPageRoutingModule } from './pedido-routing.module';
 
 import { PedidoPage } from './pedido.page';
+import { FormularioPedidoComponent } from './formulario-pedido/formulario-pedido.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { PedidoPage } from './pedido.page';
     IonicModule,
     PedidoPageRoutingModule
   ],
-  declarations: [PedidoPage],
+  declarations: [PedidoPage, FormularioPedidoComponent],
   providers: [
     ToastController
   ]

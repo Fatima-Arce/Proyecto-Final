@@ -7,6 +7,7 @@ import { IonicModule, ToastController } from '@ionic/angular';
 import { ProductosPageRoutingModule } from './productos-routing.module';
 
 import { ProductosPage } from './productos.page';
+import { FormularioProductosComponent } from './formulario-productos/formulario-productos.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { ProductosPage } from './productos.page';
     IonicModule,
     ProductosPageRoutingModule
   ],
-  declarations: [ProductosPage],
+  declarations: [ProductosPage, FormularioProductosComponent],
   providers: [
     ToastController
   ]

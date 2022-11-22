@@ -14,6 +14,7 @@ export class UsuarioPage implements OnInit {
 
   public listaUsuario: Usuario[] = [];
   public cargandoUsuario: boolean = false;
+  public modalVisible: boolean = false;
 
   constructor(
     private servicioUsuario: UsuarioService,
@@ -45,6 +46,10 @@ export class UsuarioPage implements OnInit {
       }
         
     });
+  }
+
+  public nuevo(){
+    this.modalVisible = true;
   }
 
 }

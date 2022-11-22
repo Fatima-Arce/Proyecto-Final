@@ -3,8 +3,8 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>pedido</ion-title>
-    <ion-progress-bar *ngIf="cargandoPedido" type="indeterminate"></ion-progress-bar>
+    <ion-title>DetallesPedido</ion-title>
+    <ion-progress-bar *ngIf="cargandoDetallesPedido"></ion-progress-bar>
   </ion-toolbar>
 </ion-header>
 
@@ -14,15 +14,15 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <ion-refresher slot="fixed" (ionRefresh)="cargarPedido()">
+  <ion-refresher slot="fixed" (ionRefresh)="cargarDetallesPedido()">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-list>
-    <ion-item *ngFor="let pedido of listaPedido">
-      <ion-note slot="start">{{ pedido.idpedido }}</ion-note>
+    <ion-item *ngFor="let DetallesPedido of listaDetallesPedido">
+      <ion-note slot="start"></ion-note>
       <ion-label>
-        <h2>{{ pedido.fechaPedido }}</h2>
-        <p>{{ pedido.fechaEntrega }}</p>
+        <h2></h2>
+        <p></p>
       </ion-label>
     </ion-item>
   </ion-list>
@@ -31,7 +31,7 @@
     <ng-template>
       <ion-header>
         <ion-toolbar>
-          <ion-title>Agregar Pedido</ion-title>
+          <ion-title>Agregar Detalles Pedido</ion-title>
           <ion-buttons slot="end" (click)="modalVisible = false">
             <ion-button>Cerrar</ion-button>
           </ion-buttons>
@@ -40,8 +40,8 @@
 
       <ion-content>
         <div style="padding: 10px;">
-          <app-formulario-pedido></app-formulario-pedido>
-        </div> 
+          <app-formulario-detalles-pedido></app-formulario-detalles-pedido>
+        </div>      
       </ion-content>
 
     </ng-template>

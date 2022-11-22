@@ -14,6 +14,7 @@ export class PedidoPage implements OnInit {
 
   public listaPedido: Pedido[] = [];
   public cargandoPedido: boolean = false;
+  public modalVisible: boolean = false;
 
   constructor(
     private servicioPedido: PedidoService,
@@ -44,6 +45,10 @@ export class PedidoPage implements OnInit {
         }).then(toast => toast.present());
       }
     })
+  }
+
+  public nuevo(){
+    this.modalVisible = true;
   }
 
 }

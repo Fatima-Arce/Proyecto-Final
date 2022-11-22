@@ -9,6 +9,11 @@
 </ion-header>
 
 <ion-content>
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button (click)="nuevo()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+      </ion-fab>
   <ion-refresher slot="fixed" (ionRefresh)="cargarProductos()">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -21,4 +26,24 @@
 </ion-label>
   </ion-item>
 </ion-list>
+
+<ion-modal [isOpen]="modalVisible" (didDismiss)="modalVisible = false">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Agregar Productos</ion-title>
+        <ion-buttons slot="end" (click)="modalVisible = false">
+          <ion-button>Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <div style="padding: 10px;">
+        <app-formulario-productos></app-formulario-productos>
+      </div>      
+    </ion-content>
+
+  </ng-template>
+</ion-modal>
 </ion-content>
