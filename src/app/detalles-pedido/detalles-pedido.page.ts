@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonRefresher, ToastController } from '@ionic/angular';
+import { DetallesPedido } from '../interfaces/detalles-pedido.interface';
 import { DetallesPedidoService } from '../servicios/detalles-pedido.service';
 import { DetallesPedido } from '../interfaces/detalles-pedido.interface';
 
@@ -12,6 +13,10 @@ export class DetallesPedidoPage implements OnInit {
 
   @ViewChild(IonRefresher) refresher!: IonRefresher;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2fc5e63f038c29df5d49eeae7929d91bed76f54c
   public listaDetallesPedido: DetallesPedido[] = [];
   public cargandoDetallesPedido: boolean = false;
   public modalVisible: boolean = false;
@@ -34,10 +39,10 @@ export class DetallesPedidoPage implements OnInit {
         this.cargandoDetallesPedido = false;
       },
       error: (e) => {
-        console.error('Error al consultar Detalles pedido', e);
+        console.error('Error al consultar DetallesPedido', e);
         this.cargandoDetallesPedido = false;
         this.servicioToast.create({
-          header: 'Error al cargar Detalles pedido',
+          header: 'Error al cargar DetallePedido',
           message: e.message,
           duration: 3000,
           position: 'bottom',

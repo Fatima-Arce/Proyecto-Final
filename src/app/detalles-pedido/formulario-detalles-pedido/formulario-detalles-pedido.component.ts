@@ -12,7 +12,7 @@ export class FormularioDetallesPedidoComponent implements OnInit {
 
   public listaDetallesPedido: DetallesPedido[] = [];
 
-  public iddetalles_pedido: number | null = null;
+  public iddetallesPedido: number | null = null;
   public idproducto: number | null = null;
   public cantidad: number | null = null;
   public precio: number | null = null;
@@ -29,13 +29,13 @@ export class FormularioDetallesPedidoComponent implements OnInit {
 
   private cargarDetallesPedido() {
     this.servicioDetallesPedido.get().subscribe({
-      next: (detallespedido) => {
-        this.listaDetallesPedido = detallespedido;
+      next: (detallesPedido) => {
+        this.listaDetallesPedido = detallesPedido;
       },
       error: (e) => {
-        console.error('Error al cargar Detalles Pedido', e);
+        console.error('Error al cargar DetallesPedido', e);
         this.servivioToast.create({
-          header: 'Error al cargar Detalles Pedido',
+          header: 'Error al cargar DetallesPedido',
           message: e.error,
           color: 'danger'
         })
