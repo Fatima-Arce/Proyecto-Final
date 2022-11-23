@@ -17,6 +17,11 @@ export class FormularioDetallesPedidoComponent implements OnInit {
   public cantidad: number | null = null;
   public precio: number | null = null;
 
+  public iddetalles_pedidoValidado: boolean = true;
+  public idproductoValidado: boolean = true;
+  public cantidadValidado: boolean = true;
+  public precioValidado: boolean = true;
+
   constructor(
     private servicioDetallesPedido: DetallesPedidoService,
     private servivioToast: ToastController
@@ -38,8 +43,20 @@ export class FormularioDetallesPedidoComponent implements OnInit {
     });
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.cargarDetallesPedido();
   }
 
+  guardar() {
+   this.validar();
+  }
+
+  private validar(): boolean{
+    this.iddetalles_pedidoValidado = this.iddetalles_pedido !== null;
+    this.idproductoValidado = this.idproducto !== null;
+    this.cantidadValidado = this.cantidad !== null && this.cantidad > 0;
+    this.precioValidado = this.precio !== null && this.cantidad > 0;
+    return this.iddetalles_pedidoValidado && this.idproductoValidado && this.cantidadValidado && this.precioValidado
+
+  }
 }

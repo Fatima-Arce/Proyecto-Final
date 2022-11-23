@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonRefresher, ToastController } from '@ionic/angular';
 import { DetallesPedidoService } from '../servicios/detalles-pedido.service';
+import { DetallesPedido } from '../interfaces/detalles-pedido.interface';
 
 @Component({
   selector: 'app-detalles-pedido',
@@ -11,7 +12,7 @@ export class DetallesPedidoPage implements OnInit {
 
   @ViewChild(IonRefresher) refresher!: IonRefresher;
 
-  public listaDetallesPedido: DetallesPedidoPage[] = [];
+  public listaDetallesPedido: DetallesPedido[] = [];
   public cargandoDetallesPedido: boolean = false;
   public modalVisible: boolean = false;
 

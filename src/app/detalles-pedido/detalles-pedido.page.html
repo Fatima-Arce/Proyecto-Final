@@ -19,10 +19,10 @@
   </ion-refresher>
   <ion-list>
     <ion-item *ngFor="let DetallesPedido of listaDetallesPedido">
-      <ion-note slot="start"></ion-note>
+      <ion-note slot="start">{{ DetallesPedido.iddetalles_pedido }}</ion-note>
       <ion-label>
-        <h2></h2>
-        <p></p>
+        <h2>{{ DetallesPedido.cantidad }}</h2>
+        <p>{{ DetallesPedido.precio }}</p>
       </ion-label>
     </ion-item>
   </ion-list>

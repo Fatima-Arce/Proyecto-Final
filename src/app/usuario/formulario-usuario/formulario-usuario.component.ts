@@ -22,6 +22,17 @@ export class FormularioUsuarioComponent implements OnInit {
   public correo: string | null = null;
   public password: string | null = null;
 
+  public idusuarioValidado: boolean = true;
+  public nombreValidado: boolean = true;
+  public apellidoValidado: boolean = true;
+  public direccionValidado: boolean = true;
+  public telefonoValidado: boolean = true;
+  public ciValidado: boolean = true;
+  public digitoRucValidado: boolean = true;
+  public correoValidado: boolean = true;
+  public passwordValidado: boolean = true;
+
+
   constructor(
     private servicioUsuario: UsuarioService,
     private servicioToast: ToastController
@@ -45,6 +56,23 @@ export class FormularioUsuarioComponent implements OnInit {
 
   ngOnInit() {
     this.cargarUsuario();
+  }
+
+  guardar(){
+    this.validar();
+  }
+
+  private validar(): boolean {
+    this.idusuarioValidado = this.idusuario !== null;
+    this.nombreValidado = this.nombre !== null;
+    this.apellidoValidado = this.apellido !== null;
+    this.direccionValidado = this.direccion !== null;
+    this.telefonoValidado = this.telefono !==null  && this.telefono > 0;
+    this.ciValidado = this.ci !== null  && this.ci > 0;
+    this.correoValidado = this.correo !== null;
+    this.passwordValidado = this.password !== null;
+    return this.idusuarioValidado && this.nombreValidado && this.apellidoValidado && this.direccionValidado && this.telefonoValidado && this.ciValidado && this.correoValidado && this.passwordValidado
+
   }
 
 }

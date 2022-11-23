@@ -17,6 +17,11 @@ export class FormularioPedidoComponent implements OnInit {
   public fechaPedido: number | null = null;
   public fechaEntrega: number | null = null;
 
+  public idpedidoValidado: boolean = true;
+  public idusuarioValidado: boolean = true;
+  public fechaPedidoValidado: boolean = true;
+  public fechaEntregaValidado: boolean = true;
+
   constructor(
     private servicioPedido: PedidoService,
     private servivioToast: ToastController
@@ -40,6 +45,18 @@ export class FormularioPedidoComponent implements OnInit {
 
   ngOnInit() {
     this.cargarPedido();
+  }
+
+  guardar() {
+    this.validar();
+  }
+
+  private validar(): boolean {
+    this.idpedidoValidado = this.idpedido !== null;
+    this.idusuarioValidado = this.idusuario !== null;
+    this.fechaPedidoValidado = this.fechaPedido !== null && this.fechaPedido > 0;
+    this.fechaEntregaValidado = this.fechaEntrega !== null && this.fechaPedido > 0;
+    return this.idpedidoValidado && this.idusuarioValidado && this.fechaPedidoValidado && this.fechaEntregaValidado
   }
 
 }

@@ -19,6 +19,13 @@ export class FormularioProductosComponent implements OnInit {
   public produOferta: string | null = null;
   public marcaPro: string | null = null;
 
+  public idproductoValidado: boolean = true;
+  public nombreProValidado: boolean = true;
+  public precioProValidado: boolean = true;
+  public cantidadProValidado: boolean = true;
+  public produOfertaValidado: boolean = true;
+  public marcaProValidado: boolean = true;
+
   constructor(
     private servicioProductos: ProductosService,
     private servicioToast: ToastController
@@ -42,6 +49,38 @@ export class FormularioProductosComponent implements OnInit {
 
   ngOnInit() {
     this.cargarProductos();
+  }
+
+  guardar() {
+    this.validar();
+  }
+
+  private validar(): boolean {
+    this.idproductoValidado = this.idproducto !== null;
+    this.nombreProValidado = this.nombrePro !== null;
+    this.precioProValidado = this.precioPro !== null;
+    this.cantidadProValidado = this.cantidadPro !== null;
+    this.produOfertaValidado = this.produOferta !== null;
+    this.marcaProValidado = this.marcaPro !== null;
+    return this.idproductoValidado && this.nombreProValidado && this.precioProValidado && this.cantidadProValidado && this.produOfertaValidado && this.marcaProValidado
+  }
+
+  public incrementarCantidad(){
+    if(this.cantidadPro != null){
+      this.cantidadPro ++;
+    }else{
+      this.cantidadPro = 0;
+    }
+  }
+
+  public disminuirCantidad(){
+    if(this.cantidadPro != null){    
+      if(this.cantidadPro > 0){
+        this.cantidadPro --;
+      }
+    }else{
+      this.cantidadPro = -1
+    }
   }
 
 }

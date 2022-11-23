@@ -1,26 +1,30 @@
 <ion-list >
   <ion-item>
     <ion-label>iddetalles_pedido:</ion-label>
-    <ion-input inputmode="number"></ion-input>
+    <ion-input inputmode="number" placeholder="Ingresar..." slot="end" [(ngModel)]="iddetalles_pedido"></ion-input>
+    <ion-note *ngIf="!iddetalles_pedidoValidado" slot="helper" color="danger">Ingrese un idDetallesPedido</ion-note>
   </ion-item>
 
 <ion-item>
   <ion-label>idproducto:</ion-label>
-  <ion-input inputmode="number"></ion-input>
+  <ion-input inputmode="number" placeholder="Ingresar..." slot="end" [(ngModel)]="idproducto"></ion-input>
+  <ion-note *ngIf="!idproductoValidado" slot="helper" color="danger">Ingrese un idProducto</ion-note>
 </ion-item>
 
 <ion-item>
-  <ion-label>cantidad:</ion-label>
-  <ion-input inputmode="number"></ion-input>
+  <ion-label>Cantidad:</ion-label>
+  <ion-input inputmode="number" [(ngModel)]="cantidad"></ion-input>
+  <ion-note *ngIf="!cantidadValidado" slot="helper" color="danger">Ingrese la cantidad</ion-note>
 </ion-item>
 
 <ion-item>
-  <ion-label>precio:</ion-label>
-  <ion-input inputmode="number"></ion-input>
+  <ion-label>Precio:</ion-label>
+  <ion-input inputmode="number" placeholder="Ingresar..." slot="end" [(ngModel)]="precio"></ion-input>
+  <ion-note *ngIf="!precioValidado" slot="helper" color="danger">Ingrese el precio</ion-note>
 </ion-item>
 </ion-list>
 
-<ion-button expand="full">
+<ion-button expand="full" (click)="guardar()">
   <ion-icon name="save" slot="start"></ion-icon>
   Guardar
 </ion-button>

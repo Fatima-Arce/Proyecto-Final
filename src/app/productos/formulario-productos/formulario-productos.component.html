@@ -1,36 +1,49 @@
 <ion-list >
   <ion-item>
     <ion-label>idproducto:</ion-label>
-    <ion-input inputmode="number"></ion-input>
+    <ion-input inputmode="number" placeholder="Ingresar..." slot="end" [(ngModel)]="idproducto"></ion-input>
+    <ion-note slot="helper" color="danger">Ingrese un idProducto</ion-note>
   </ion-item>
 
 <ion-item>
   <ion-label>Nombre Producto:</ion-label>
-  <ion-input inputmode="number"></ion-input>
+  <ion-select placeholder="Seleccionar..." [(ngModel)]="nombrePro">
+    <ion-select-option *ngFor="let productos of listaProductos" [value]="productos.idproducto">{{ productos.nombrePro }}</ion-select-option>
+  </ion-select>
+  <ion-note slot="helper" color="danger">Ingrese el nombre producto</ion-note>
 </ion-item>
 
 <ion-item>
   <ion-label>Precio Producto</ion-label>
-  <ion-input inputmode="number"></ion-input>
+  <ion-input inputmode="number" placeholder="Ingresar..." slot="end" [(ngModel)]="precioPro"></ion-input>
+  <ion-note slot="helper" color="danger">Ingrese el Precio Producto</ion-note>
 </ion-item>
 
 <ion-item>
   <ion-label>Cantidad Producto:</ion-label>
-  <ion-input inputmode="number"></ion-input>
+  <ion-input inputmode="number" placeholder="Ingresar..." slot="end" [(ngModel)]="cantidadPro"></ion-input>
+  <ion-note slot="helper" color="danger">Ingrese la Cantidad Producto</ion-note>
+  <ion-button slot="end" (click)="incrementarCantidad()">
+    <ion-icon name="add" slot="icon-only"></ion-icon>
+  </ion-button>
+  <ion-button slot="end" (click)="disminuirCantidad()">
+    <ion-icon name="remove" slot="icon-only"></ion-icon>
+  </ion-button>
 </ion-item>
-</ion-list>
 
 <ion-item>
   <ion-label>Producto Oferta:</ion-label>
-  <ion-input inputmode="number"></ion-input>
+  <ion-input inputmode="number" placeholder="Ingresar..." slot="end" [(ngModel)]="produOferta"></ion-input>
+  <ion-note slot="helper" color="danger">Ingrese el producto oferta</ion-note>
 </ion-item>
 
 <ion-item>
   <ion-label>Marca Producto:</ion-label>
-  <ion-input inputmode="number"></ion-input>
+  <ion-input inputmode="number" placeholder="Ingresar..." slot="end" [(ngModel)]="marcaPro"></ion-input>
+  <ion-note slot="helper" color="danger">Ingrese la marca producto</ion-note>
 </ion-item>
 
-<ion-button expand="full">
+<ion-button expand="full" (click)="guardar()">
   <ion-icon name="save" slot="start"></ion-icon>
   Guardar
 </ion-button>
