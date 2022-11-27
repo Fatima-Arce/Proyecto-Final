@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
+import { ProductosService } from 'src/app/servicios/productos.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 
 @Component({
@@ -10,32 +12,28 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
 })
 export class FormularioUsuarioComponent implements OnInit {
 
+  @Output()
+  recargar = new EventEmitter<boolean>();
+
   public listaUsuario: Usuario[] = [];
 
-  public idusuario: number | null = null;
-  public nombre: string | null = null;
-  public apellido: string | null = null;
-  public direccion: string | null = null;
-  public telefono: number | null = null;
-  public ci: number | null = null;
-  public digitoRuc: number | null = null;
-  public correo: string | null = null;
-  public password: string | null = null;
-
-  public idusuarioValidado: boolean = true;
-  public nombreValidado: boolean = true;
-  public apellidoValidado: boolean = true;
-  public direccionValidado: boolean = true;
-  public telefonoValidado: boolean = true;
-  public ciValidado: boolean = true;
-  public digitoRucValidado: boolean = true;
-  public correoValidado: boolean = true;
-  public passwordValidado: boolean = true;
+  public form: FormGroup = new FormGroup({
+    idusuarioCtrl: new FormControl<number>(null, Validators.required),
+    nombreCtrl: new FormControl<string>(null, Validators.required),
+    apellidoCtrl: new FormControl<string>(null, Validators.required),
+    direccionCtrl: new FormControl<string>(null, Validators.required),
+    telefonoCtrl: new FormControl<number>(null, Validators.required),
+    ciCtrl: new FormControl<number>(null, Validators.required),
+    digitoRucCtrl: new FormControl<number>(null, Validators.required),
+    correoCtrl: new FormControl<string>(null, Validators.required),
+    passwordCtrl: new FormControl<string>(null, Validators.required)
+  });
 
 
   constructor(
     private servicioUsuario: UsuarioService,
-    private servicioToast: ToastController
+    private servicioToast: ToastController,
+    private servicioProductos: ProductosService
   ) { }
 
   private cargarUsuario() {
@@ -59,20 +57,44 @@ export class FormularioUsuarioComponent implements OnInit {
   }
 
   guardar(){
-    this.validar();
+    this.form.markAllAsTouched();
+    if(this.form.valid){
+      this.registrar();
+    }
   }
 
-  private validar(): boolean {
-    this.idusuarioValidado = this.idusuario !== null;
-    this.nombreValidado = this.nombre !== null;
-    this.apellidoValidado = this.apellido !== null;
-    this.direccionValidado = this.direccion !== null;
-    this.telefonoValidado = this.telefono !==null  && this.telefono > 0;
-    this.ciValidado = this.ci !== null  && this.ci > 0;
-    this.correoValidado = this.correo !== null;
-    this.passwordValidado = this.password !== null;
-    return this.idusuarioValidado && this.nombreValidado && this.apellidoValidado && this.direccionValidado && this.telefonoValidado && this.ciValidado && this.correoValidado && this.passwordValidado
-
+  private registrar() {
+    const usuario: Usuario = {
+      idusuario: this.form.controls.idusuarioCtrl.value,
+      nombre: this.form.controls.nombreCtrl.value,
+      apellido: this.form.controls.apellidoCtrl.value,
+      direccion: this.form.controls.direccionCtrl.value,
+      telefono: this.form.controls.telefonoCtrl.value,
+      ci: this.form.controls.ciCtrl.value,
+      digitoRuc: this.form.controls.digitoRucCtrl.value,
+      correo: this.form.controls.correoCtrl.value,
+      password: this.form.controls.passwordCtrl.value,
+      
+    }
+    this.servicioUsuario.post(usuario).subscribe({
+      next: () => {
+        this.recargar.emit(true);
+        this.servicioToast.create({
+          header: 'Exito',
+          message: 'Se registro el usuario',
+          duration: 2000,
+          color: 'success'
+        }).then(t => t.present());
+      },
+      error: (e) => {
+        console.error('Error al registrar usuario', e);
+        this.servicioToast.create({
+          header: 'Error al registrar usuario',
+          message: e.message,
+          duration: 3500,
+          color: 'danger'
+        }).then(t => t.present());
+      }
+    })
   }
-
 }

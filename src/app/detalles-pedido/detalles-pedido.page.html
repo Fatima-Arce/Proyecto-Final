@@ -19,17 +19,10 @@
   </ion-refresher>
   <ion-list>
     <ion-item *ngFor="let DetallesPedido of listaDetallesPedido">
-<<<<<<< HEAD
-      <ion-note slot="start">{{ DetallesPedido.iddetalles_pedido }}</ion-note>
-      <ion-label>
-        <h2>{{ DetallesPedido.cantidad }}</h2>
-        <p>{{ DetallesPedido.precio }}</p>
-=======
       <ion-note slot="start">{{DetallesPedido.iddetallesPedido}}</ion-note>
       <ion-label>
         <h2>{{DetallesPedido.cantidad}}</h2>
         <p>{{DetallesPedido.precio}}</p>
->>>>>>> 2fc5e63f038c29df5d49eeae7929d91bed76f54c
       </ion-label>
     </ion-item>
   </ion-list>
@@ -47,7 +40,7 @@
 
       <ion-content>
         <div style="padding: 10px;">
-          <app-formulario-detalles-pedido></app-formulario-detalles-pedido>
+          <app-formulario-detalles-pedido (recargar)="cargarDetallesPedido()"></app-formulario-detalles-pedido>
         </div>      
       </ion-content>
 

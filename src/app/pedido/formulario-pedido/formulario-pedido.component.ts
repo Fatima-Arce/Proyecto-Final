@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { Pedido } from 'src/app/interfaces/pedido.interface';
+import { DetallesPedidoService } from 'src/app/servicios/detalles-pedido.service';
 import { PedidoService } from 'src/app/servicios/pedido.service';
 
 @Component({
@@ -10,24 +12,25 @@ import { PedidoService } from 'src/app/servicios/pedido.service';
 })
 export class FormularioPedidoComponent implements OnInit {
 
+  @Output()
+  recargar = new EventEmitter<boolean>();
+
   public listaPedido: Pedido[] = [];
 
-  public idpedido: number | null = null;
-  public idusuario: number | null = null;
-  public fechaPedido: number | null = null;
-  public fechaEntrega: number | null = null;
-
-  public idpedidoValidado: boolean = true;
-  public idusuarioValidado: boolean = true;
-  public fechaPedidoValidado: boolean = true;
-  public fechaEntregaValidado: boolean = true;
+  public form: FormGroup = new FormGroup({
+    idpedidoCtrl: new FormControl<number>(null, Validators.required),
+    idusuarioCtrl: new FormControl<number>(null, Validators.required),
+    fechaPedidoCtrl: new FormControl<number>(null, Validators.required),
+    fechaEntregaCtrl: new FormControl<number>(null, Validators.required)
+  });
 
   constructor(
     private servicioPedido: PedidoService,
-    private servivioToast: ToastController
+    private servivioToast: ToastController,
+    private servicioDetallesPedido: DetallesPedidoService
   ) { }
 
-  private cargarPedido(){
+  private cargarPedido() {
     this.servicioPedido.get().subscribe({
       next: (pedido) => {
         this.listaPedido = pedido;
@@ -48,15 +51,38 @@ export class FormularioPedidoComponent implements OnInit {
   }
 
   guardar() {
-    this.validar();
+    this.form.markAllAsTouched();
+    if (this.form.valid) {
+      this.registrar();
+    }
   }
 
-  private validar(): boolean {
-    this.idpedidoValidado = this.idpedido !== null;
-    this.idusuarioValidado = this.idusuario !== null;
-    this.fechaPedidoValidado = this.fechaPedido !== null && this.fechaPedido > 0;
-    this.fechaEntregaValidado = this.fechaEntrega !== null && this.fechaPedido > 0;
-    return this.idpedidoValidado && this.idusuarioValidado && this.fechaPedidoValidado && this.fechaEntregaValidado
+  private registrar() {
+    const pedido: Pedido = {
+      idpedido: this.form.controls.idpedidoCtrl.value,
+      idusuario: this.form.controls.idusuarioCtrl.value,
+      fechaPedido: this.form.controls.fechaPedidoCtrl.value,
+      fechaEntrega: this.form.controls.fechaEntregaCtrl.value,
+    }
+    this.servicioPedido.post(pedido).subscribe({
+      next: () => {
+        this.recargar.emit(true);
+        this.servivioToast.create({
+          header: 'Exito',
+          message: 'Se registro el pedido',
+          duration: 2000,
+          color: 'success'
+        }).then(t => t.present())
+      },
+      error: (e) => {
+        console.error('Error al registrar pedido', e);
+        this.servivioToast.create({
+          header: 'Error al registrar pedido',
+          message: e.message,
+          duration: 3500,
+          color: 'danger'
+        }).then(t => t.present());
+      }
+    });
   }
-
 }

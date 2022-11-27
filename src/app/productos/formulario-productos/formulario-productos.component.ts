@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { Productos } from 'src/app/interfaces/productos.interface';
+import { PedidoService } from 'src/app/servicios/pedido.service';
 import { ProductosService } from 'src/app/servicios/productos.service';
 
 @Component({
@@ -10,25 +12,24 @@ import { ProductosService } from 'src/app/servicios/productos.service';
 })
 export class FormularioProductosComponent implements OnInit {
 
+  @Output()
+  recargar = new EventEmitter<boolean>();
+
   public listaProductos: Productos[] = [];
 
-  public idproducto: number | null = null;
-  public nombrePro: string | null = null;
-  public precioPro: number | null = null;
-  public cantidadPro: number | null = null;
-  public produOferta: string | null = null;
-  public marcaPro: string | null = null;
-
-  public idproductoValidado: boolean = true;
-  public nombreProValidado: boolean = true;
-  public precioProValidado: boolean = true;
-  public cantidadProValidado: boolean = true;
-  public produOfertaValidado: boolean = true;
-  public marcaProValidado: boolean = true;
+  public form: FormGroup = new FormGroup({
+    idproductoCtrl: new FormControl<number>(null, Validators.required),
+    nombreProCtrl: new FormControl<number>(null, Validators.required),
+    precioProCtrl: new FormControl<number>(null, Validators.required),
+    cantidadProCtrl: new FormControl<number>(null, Validators.required),
+    produOfertaCtrl: new FormControl<string>(null, Validators.required),
+    marcaProCtrl: new FormControl<string>(null, Validators.required)
+  });
 
   constructor(
     private servicioProductos: ProductosService,
-    private servicioToast: ToastController
+    private servicioToast: ToastController,
+    private servicioPedido: PedidoService
   ) { }
 
   private cargarProductos() {
@@ -52,35 +53,58 @@ export class FormularioProductosComponent implements OnInit {
   }
 
   guardar() {
-    this.validar();
-  }
-
-  private validar(): boolean {
-    this.idproductoValidado = this.idproducto !== null;
-    this.nombreProValidado = this.nombrePro !== null;
-    this.precioProValidado = this.precioPro !== null;
-    this.cantidadProValidado = this.cantidadPro !== null;
-    this.produOfertaValidado = this.produOferta !== null;
-    this.marcaProValidado = this.marcaPro !== null;
-    return this.idproductoValidado && this.nombreProValidado && this.precioProValidado && this.cantidadProValidado && this.produOfertaValidado && this.marcaProValidado
-  }
-
-  public incrementarCantidad(){
-    if(this.cantidadPro != null){
-      this.cantidadPro ++;
-    }else{
-      this.cantidadPro = 0;
+    this.form.markAllAsTouched();
+    if (this.form.valid) {
+      this.registrar()
     }
-  }
 
-  public disminuirCantidad(){
-    if(this.cantidadPro != null){    
-      if(this.cantidadPro > 0){
-        this.cantidadPro --;
+  private registrar() {
+    const productos: Productos = {
+      idproducto: this.form.controls.idproductoCtrl.value,
+      nombrePro: this.form.controls.nombreProCtrl.value,
+      precioPro: this.form.controls.precioCtrl.value,
+      cantidadPro: this.form.controls.cantidadCtrl.value,
+      produOferta: this.form.controls.produOfertaCtrl.value,
+      marcaPro: this.form.controls.marcaProCtrl.value,
+    }
+    this.servicioProductos.post(productos).subscribe({
+      next: () => {
+        this.recargar.emit(true);
+        this.servicioToast.create({
+          header: 'Exito',
+          message: 'Se registro el producto',
+          duration: 2000,
+          color: 'success'
+        }).then(t => t.present());
+      },
+      error: (e) => {
+        console.error('Error al registrar producto', e);
+        this.servicioToast.create({
+          header: 'Error al registrar producto',
+          message: e.message,
+          duration: 3500,
+          color: 'danger'
+        }).then(t => t.present());
       }
-    }else{
-      this.cantidadPro = -1
-    }
+    })
   }
-
 }
+
+  public incrementarCantidad() {
+  if (this.cantidadPro != null) {
+    this.cantidadPro++;
+  } else {
+    this.cantidadPro = 0;
+  }
+}
+
+  public disminuirCantidad() {
+  if (this.cantidadPro != null) {
+    if (this.cantidadPro > 0) {
+      this.cantidadPro--;
+    }
+  } else {
+    this.cantidadPro = -1
+  }
+}
+

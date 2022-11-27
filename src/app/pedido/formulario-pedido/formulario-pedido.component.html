@@ -1,26 +1,32 @@
-<ion-list >
-  <ion-item>
-    <ion-label>idpedido:</ion-label>
-    <ion-input inputmode="number"></ion-input>
-  </ion-item>
+<form [formGroup]="form">
+  <ion-list>
+    <ion-item fill="outline">
+      <ion-label position="floating">idpedido</ion-label>
+      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="idpedidoCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.idpedidoCtrl.touched">Ingrese un idPedido</ion-note>
+    </ion-item>
 
-<ion-item>
-  <ion-label>idusuario:</ion-label>
-  <ion-input inputmode="number"></ion-input>
-</ion-item>
+    <ion-item fill="outline" class="item-espaciado">
+      <ion-label position="floating">idusuario</ion-label>
+      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="idusuarioCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.idusuarioCtrl.touched">Ingrese un idusuario</ion-note>
+    </ion-item>
 
-<ion-item>
-  <ion-label>Fecha Pedido:</ion-label>
-  <ion-input inputmode="number"></ion-input>
-</ion-item>
+    <ion-item fill="outline" class="item-espaciado">
+      <ion-label position="floating">Fecha Pedido</ion-label>
+      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="fechaPedidoCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.fechaPedidoCtrl.touched">Ingrese la fecha pedido</ion-note>
+    </ion-item>
 
-<ion-item>
-  <ion-label>Fecha Entrega:</ion-label>
-  <ion-input inputmode="number"></ion-input>
-</ion-item>
-</ion-list>
+    <ion-item fill="outline">
+      <ion-label position="floating">Fecha Entrega</ion-label>
+      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="fechaEntregaCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.fechaEntregaCtrl.touched">Ingrese la fecha entrega</ion-note>
+    </ion-item>
+  </ion-list>
 
-<ion-button expand="full">
-  <ion-icon name="save" slot="start"></ion-icon>
-  Guardar
-</ion-button>
+  <ion-button expand="full" (click)="guardar()">
+    <ion-icon name="save" slot="start"></ion-icon>
+    Guardar
+  </ion-button>
+</form>

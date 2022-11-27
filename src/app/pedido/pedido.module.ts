@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule, ToastController } from '@ionic/angular';
-
 import { PedidoPageRoutingModule } from './pedido-routing.module';
-
 import { PedidoPage } from './pedido.page';
 import { FormularioPedidoComponent } from './formulario-pedido/formulario-pedido.component';
 
@@ -14,7 +11,8 @@ import { FormularioPedidoComponent } from './formulario-pedido/formulario-pedido
     CommonModule,
     FormsModule,
     IonicModule,
-    PedidoPageRoutingModule
+    PedidoPageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [PedidoPage, FormularioPedidoComponent],
   providers: [

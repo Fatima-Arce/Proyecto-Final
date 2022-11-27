@@ -1,53 +1,62 @@
-<ion-list >
-  <ion-item>
-    <ion-label>idusuario:</ion-label>
-    <ion-input inputmode="number"></ion-input>
-  </ion-item>
+<form [formGroup]="form">
+  <ion-list>
+    <ion-item fill="outline">
+      <ion-label position="floating">idusuario</ion-label>
+      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="idusuarioCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.idusuarioCtrl.touched">Ingrese un idusuario</ion-note>
+    </ion-item>
 
-<ion-item>
-  <ion-label>Nombre:</ion-label>
-  <ion-input inputmode="number"></ion-input>
-</ion-item>
+    <ion-item fill="outline">
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input inputmode="text" type="text" placeholder="Ingresar..." formControlName="nombreCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.nombreCtrl.touched">Ingrese el nombre</ion-note>
+    </ion-item>
 
-<ion-item>
-  <ion-label>Apellido:</ion-label>
-  <ion-input inputmode="number"></ion-input>
-</ion-item>
+    <ion-item fill="outline">
+      <ion-label position="floating">Apellido</ion-label>
+      <ion-input inputmode="text" type="text" placeholder="Ingresar..." formControlName="apellidoCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.apellidoCtrl.touched">Ingrese el apellido</ion-note>
+    </ion-item>
 
-<ion-item>
-  <ion-label>Direccion:</ion-label>
-  <ion-input inputmode="number"></ion-input>
-</ion-item>
+    <ion-item fill="outline">
+      <ion-label position="floating">Direccion</ion-label>
+      <ion-input inputmode="text" type="text" placeholder="Ingresar..." formControlName="direccionCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.direccionCtrl.touched">Ingrese la direccion</ion-note>
+    </ion-item>
 
-<ion-item>
-  <ion-label>Telefono:</ion-label>
-  <ion-input inputmode="number"></ion-input>
-</ion-item>
+    <ion-item fill="outline">
+      <ion-label position="floating">Telefono</ion-label>
+      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="telefonoCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.telefonoCtrl.touched">Ingrese el n° de telefono</ion-note>
+    </ion-item>
 
-<ion-item>
-  <ion-label>C.I.:</ion-label>
-  <ion-input inputmode="number"></ion-input>
-</ion-item>
+    <ion-item fill="outline">
+      <ion-label position="floating">C.I.</ion-label>
+      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="ciCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.ciCtrl.touched">Ingrese el C.I.</ion-note>
+    </ion-item>
 
-<ion-item>
-  <ion-label>Digito RUC:</ion-label>
-  <ion-input inputmode="number"></ion-input>
-</ion-item>
+    <ion-item fill="outline">
+      <ion-label position="floating">Digito RUC</ion-label>
+      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="digitoRucCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.digitoRucCtrl.touched">Ingrese el digito RUC</ion-note>
+    </ion-item>
 
-<ion-item>
-  <ion-label>Correo:</ion-label>
-  <ion-input inputmode="number"></ion-input>
-</ion-item>
+    <ion-item fill="outline">
+      <ion-label position="floating">Correo</ion-label>
+      <ion-input inputmode="text" type="text" placeholder="Ingresar..." formControlName="correoCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.correoCtrl.touched">Ingrese el correo</ion-note>
+    </ion-item>
 
-<ion-item>
-  <ion-label>Password:</ion-label>
-  <ion-input inputmode="number"></ion-input>
-</ion-item>
-</ion-list>
+    <ion-item fill="outline">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input inputmode="text" type="text" placeholder="Ingresar..." formControlName="passwordCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.passwordCtrl.touched">Ingrese el password</ion-note>
+    </ion-item>
+  </ion-list>
 
-<ion-button expand="full">
-  <ion-icon name="save" slot="start"></ion-icon>
-  Guardar
-</ion-button>
-
-
+  <ion-button expand="full" (click)="guardar()">
+    <ion-icon name="save" slot="start"></ion-icon>
+    Guardar
+  </ion-button>
+</form>

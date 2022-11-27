@@ -1,37 +1,32 @@
-<ion-list >
-  <ion-item>
-<<<<<<< HEAD
-    <ion-label>iddetalles_pedido:</ion-label>
-    <ion-input inputmode="number" placeholder="Ingresar..." slot="end" [(ngModel)]="iddetalles_pedido"></ion-input>
-    <ion-note *ngIf="!iddetalles_pedidoValidado" slot="helper" color="danger">Ingrese un idDetallesPedido</ion-note>
-=======
-    <ion-label>iddetallesPedido:</ion-label>
-    <ion-input inputmode="number"></ion-input>
->>>>>>> 2fc5e63f038c29df5d49eeae7929d91bed76f54c
-  </ion-item>
+<form [formGroup]="form">
+  <ion-list>
+    <ion-item fill="outline">
+      <ion-label position="floating">iddetallesPedido</ion-label>
+      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="iddetallesPedidoCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.iddetallesPedidoCtrl.touched">Ingrese un iddetallesPedido</ion-note>
+    </ion-item>
 
-<ion-item>
-  <ion-label>idproducto:</ion-label>
-  <ion-input inputmode="number" placeholder="Ingresar..." slot="end" [(ngModel)]="idproducto"></ion-input>
-  <ion-note *ngIf="!idproductoValidado" slot="helper" color="danger">Ingrese un idProducto</ion-note>
-</ion-item>
+    <ion-item fill="outline" class="item-espaciado">
+      <ion-label position="floating">idproducto</ion-label>
+      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="idproductoCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.idproductoCtrl.touched">Ingrese un idproducto</ion-note>
+    </ion-item>
 
-<ion-item>
-  <ion-label>Cantidad:</ion-label>
-  <ion-input inputmode="number" [(ngModel)]="cantidad"></ion-input>
-  <ion-note *ngIf="!cantidadValidado" slot="helper" color="danger">Ingrese la cantidad</ion-note>
-</ion-item>
+    <ion-item fill="outline" class="item-espaciado">
+      <ion-label position="floating">Cantidad</ion-label>
+      <ion-input inputmode="number" type="number" formControlName="cantidadCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.cantidadCtrl.touched">Ingrese la cantidad</ion-note>
+    </ion-item>
 
-<ion-item>
-  <ion-label>Precio:</ion-label>
-  <ion-input inputmode="number" placeholder="Ingresar..." slot="end" [(ngModel)]="precio"></ion-input>
-  <ion-note *ngIf="!precioValidado" slot="helper" color="danger">Ingrese el precio</ion-note>
-</ion-item>
-</ion-list>
+    <ion-item fill="outline">
+      <ion-label position="floating">Precio</ion-label>
+      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="precioCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.precioCtrl.touched">Ingrese el precio</ion-note>
+    </ion-item>
+  </ion-list>
 
-<ion-button expand="full" (click)="guardar()">
-  <ion-icon name="save" slot="start"></ion-icon>
-  Guardar
-</ion-button>
-
-
+  <ion-button expand="full" (click)="guardar()">
+    <ion-icon name="save" slot="start"></ion-icon>
+    Guardar
+  </ion-button>
+</form>

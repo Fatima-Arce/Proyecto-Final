@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule, ToastController } from '@ionic/angular';
-
 import { UsuarioPageRoutingModule } from './usuario-routing.module';
-
 import { UsuarioPage } from './usuario.page';
 import { FormularioUsuarioComponent } from './formulario-usuario/formulario-usuario.component';
 
@@ -14,7 +11,8 @@ import { FormularioUsuarioComponent } from './formulario-usuario/formulario-usua
     CommonModule,
     FormsModule,
     IonicModule,
-    UsuarioPageRoutingModule
+    UsuarioPageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [UsuarioPage, FormularioUsuarioComponent],
   providers: [
