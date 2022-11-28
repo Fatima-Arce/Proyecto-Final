@@ -15,6 +15,8 @@ export class FormularioPedidoComponent implements OnInit {
   @Output()
   recargar = new EventEmitter<boolean>();
 
+  public modo: "Registrar" | "Editar" = "Registrar";
+
   public listaPedido: Pedido[] = [];
 
   public form: FormGroup = new FormGroup({
@@ -53,7 +55,11 @@ export class FormularioPedidoComponent implements OnInit {
   guardar() {
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      this.registrar();
+      if(this.modo === 'Registrar') {
+        this.registrar();
+      }else{
+        this.editar();
+      }     
     }
   }
 
@@ -78,6 +84,35 @@ export class FormularioPedidoComponent implements OnInit {
         console.error('Error al registrar pedido', e);
         this.servivioToast.create({
           header: 'Error al registrar pedido',
+          message: e.message,
+          duration: 3500,
+          color: 'danger'
+        }).then(t => t.present());
+      }
+    });
+  }
+
+  private editar() {
+    const pedido: Pedido = {
+      idpedido: this.form.controls.idpedidoCtrl.value,
+      idusuario: this.form.controls.idusuarioCtrl.value,
+      fechaPedido: this.form.controls.fechaPedidoCtrl.value,
+      fechaEntrega: this.form.controls.fechaEntregaCtrl.value,
+    }
+    this.servicioPedido.put(pedido).subscribe({
+      next: () => {
+        this.recargar.emit(true);
+        this.servivioToast.create({
+          header: 'Exito',
+          message: 'Se editó el pedido',
+          duration: 2000,
+          color: 'success'
+        }).then(t => t.present())
+      },
+      error: (e) => {
+        console.error('Error al editar pedido', e);
+        this.servivioToast.create({
+          header: 'Error al editar pedido',
           message: e.message,
           duration: 3500,
           color: 'danger'

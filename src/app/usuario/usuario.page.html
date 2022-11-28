@@ -18,7 +18,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 <ion-list>
-  <ion-item *ngFor="let usuario of listaUsuario">
+  <ion-item *ngFor="let usuario of listaUsuario" button (click)="editar(usuario)">
     <ion-note slot="start">{{ usuario.idusuario }}</ion-note>
 <ion-label>
   <h2>{{ usuario.nombre }}</h2>
@@ -27,11 +27,11 @@
   </ion-item>
 </ion-list>
 
-<ion-modal [isOpen]="modalVisible" (didDismiss)="modalVisible = false">
+<ion-modal [isOpen]="modalVisible" (didDismiss)="modalVisible = false" (didPresent)="cargarDatosEditar()">
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Registrar Usuario</ion-title>
+        <ion-title>{{ modoFormulario }} Usuario</ion-title>
         <ion-buttons slot="end" (click)="modalVisible = false">
           <ion-button>Cerrar</ion-button>
         </ion-buttons>

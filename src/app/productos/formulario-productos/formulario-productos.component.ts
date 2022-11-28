@@ -15,6 +15,8 @@ export class FormularioProductosComponent implements OnInit {
   @Output()
   recargar = new EventEmitter<boolean>();
 
+  public modo: "Registrar" | "Editar" = "Registrar";
+
   public listaProductos: Productos[] = [];
 
   public form: FormGroup = new FormGroup({
@@ -55,7 +57,11 @@ export class FormularioProductosComponent implements OnInit {
   guardar() {
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      this.registrar()
+      if(this.modo === 'Registrar'){
+        this.registrar();
+      }else{
+        this.editar();
+      }     
     }
 
   private registrar() {
@@ -88,6 +94,37 @@ export class FormularioProductosComponent implements OnInit {
       }
     })
   }
+
+  private editar() {
+    const productos: Productos = {
+      idproducto: this.form.controls.idproductoCtrl.value,
+      nombrePro: this.form.controls.nombreProCtrl.value,
+      precioPro: this.form.controls.precioCtrl.value,
+      cantidadPro: this.form.controls.cantidadCtrl.value,
+      produOferta: this.form.controls.produOfertaCtrl.value,
+      marcaPro: this.form.controls.marcaProCtrl.value,
+    }
+    this.servicioProductos.put(productos).subscribe({
+      next: () => {
+        this.recargar.emit(true);
+        this.servicioToast.create({
+          header: 'Exito',
+          message: 'Se editó el producto',
+          duration: 2000,
+          color: 'success'
+        }).then(t => t.present());
+      },
+      error: (e) => {
+        console.error('Error al editar producto', e);
+        this.servicioToast.create({
+          header: 'Error al editar producto',
+          message: e.message,
+          duration: 3500,
+          color: 'danger'
+        }).then(t => t.present());
+      }
+    })
+  }
 }
 
   public incrementarCantidad() {
@@ -107,4 +144,6 @@ export class FormularioProductosComponent implements OnInit {
     this.cantidadPro = -1
   }
 }
+
+
 

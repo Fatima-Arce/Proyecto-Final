@@ -15,6 +15,8 @@ export class FormularioUsuarioComponent implements OnInit {
   @Output()
   recargar = new EventEmitter<boolean>();
 
+  public modo: "Registrar" | "Editar" = "Registrar";
+
   public listaUsuario: Usuario[] = [];
 
   public form: FormGroup = new FormGroup({
@@ -59,7 +61,11 @@ export class FormularioUsuarioComponent implements OnInit {
   guardar(){
     this.form.markAllAsTouched();
     if(this.form.valid){
-      this.registrar();
+      if(this.modo === 'Registrar') {
+        this.registrar();
+      }else{
+        this.editar();
+      }     
     }
   }
 
@@ -97,4 +103,40 @@ export class FormularioUsuarioComponent implements OnInit {
       }
     })
   }
+
+  private editar() {
+    const usuario: Usuario = {
+      idusuario: this.form.controls.idusuarioCtrl.value,
+      nombre: this.form.controls.nombreCtrl.value,
+      apellido: this.form.controls.apellidoCtrl.value,
+      direccion: this.form.controls.direccionCtrl.value,
+      telefono: this.form.controls.telefonoCtrl.value,
+      ci: this.form.controls.ciCtrl.value,
+      digitoRuc: this.form.controls.digitoRucCtrl.value,
+      correo: this.form.controls.correoCtrl.value,
+      password: this.form.controls.passwordCtrl.value,
+      
+    }
+    this.servicioUsuario.put(usuario).subscribe({
+      next: () => {
+        this.recargar.emit(true);
+        this.servicioToast.create({
+          header: 'Exito',
+          message: 'Se editó el usuario',
+          duration: 2000,
+          color: 'success'
+        }).then(t => t.present());
+      },
+      error: (e) => {
+        console.error('Error al editar usuario', e);
+        this.servicioToast.create({
+          header: 'Error al editar usuario',
+          message: e.message,
+          duration: 3500,
+          color: 'danger'
+        }).then(t => t.present());
+      }
+    })
+  }
+  
 }

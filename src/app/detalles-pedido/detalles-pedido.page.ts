@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonRefresher, ToastController } from '@ionic/angular';
 import { DetallesPedidoService } from '../servicios/detalles-pedido.service';
 import { DetallesPedido } from '../interfaces/detalles-pedido.interface';
+import { FormularioDetallesPedidoComponent } from './formulario-detalles-pedido/formulario-detalles-pedido.component';
 
 @Component({
   selector: 'app-detalles-pedido',
@@ -11,10 +12,14 @@ import { DetallesPedido } from '../interfaces/detalles-pedido.interface';
 export class DetallesPedidoPage implements OnInit {
 
   @ViewChild(IonRefresher) refresher!: IonRefresher;
+  @ViewChild(FormularioDetallesPedidoComponent) formularioDetallesPedido!: FormularioDetallesPedidoComponent
 
   public listaDetallesPedido: DetallesPedido[] = [];
   public cargandoDetallesPedido: boolean = false;
   public modalVisible: boolean = false;
+
+  private detallesPedidoSeleccionado: DetallesPedido | null = null;
+  public modoFormulario: 'Registrar' | 'Editar' = 'Registrar';
 
   constructor(
     private servicioDetallesPedido: DetallesPedidoService,
@@ -48,6 +53,24 @@ export class DetallesPedidoPage implements OnInit {
   }
 
   public nuevo(){
+    this.modoFormulario = 'Registrar';
+    this.detallesPedidoSeleccionado = null;
+    this.modalVisible = true;   
+  }
+
+  public editar(detalllesPedido: DetallesPedido){
+    this.detallesPedidoSeleccionado = detalllesPedido;
+    this.formularioDetallesPedido.modo = 'Editar';
     this.modalVisible = true;
+  }
+
+  public cargarDatosEditar() {
+    if(this.modoFormulario === 'Editar') {
+      this.formularioDetallesPedido.modo = this.modoFormulario;
+      this.formularioDetallesPedido.form.controls.iddetallesPedidoCtrl.setValue(this.detallesPedidoSeleccionado.iddetallesPedido);
+      this.formularioDetallesPedido.form.controls.idproductoCtrl.setValue(this.detallesPedidoSeleccionado.idproducto);
+      this.formularioDetallesPedido.form.controls.cantidadCtrl.setValue(this.detallesPedidoSeleccionado.cantidad);
+      this.formularioDetallesPedido.form.controls.precioCtrl.setValue(this.detallesPedidoSeleccionado.precio);
+    }
   }
 }

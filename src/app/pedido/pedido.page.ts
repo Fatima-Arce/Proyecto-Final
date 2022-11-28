@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonRefresher, ToastController } from '@ionic/angular';
 import { Pedido } from '../interfaces/pedido.interface';
 import { PedidoService } from '../servicios/pedido.service';
+import { FormularioPedidoComponent } from './formulario-pedido/formulario-pedido.component';
 
 @Component({
   selector: 'app-pedido',
@@ -11,10 +12,14 @@ import { PedidoService } from '../servicios/pedido.service';
 export class PedidoPage implements OnInit {
 
   @ViewChild(IonRefresher) refresher!: IonRefresher;
+  @ViewChild(FormularioPedidoComponent) formularioPedido!: FormularioPedidoComponent
 
   public listaPedido: Pedido[] = [];
   public cargandoPedido: boolean = false;
   public modalVisible: boolean = false;
+
+  private PedidoSeleccionado: Pedido | null = null;
+  public modoFormulario: 'Registrar' | 'Editar' = 'Registrar';
 
   constructor(
     private servicioPedido: PedidoService,
@@ -25,7 +30,7 @@ export class PedidoPage implements OnInit {
     this.cargarPedido();
   }
 
-  public cargarPedido(){
+  public cargarPedido() {
     this.refresher?.complete();
     this.cargandoPedido = true;
     this.servicioPedido.get().subscribe({
@@ -47,8 +52,26 @@ export class PedidoPage implements OnInit {
     })
   }
 
-  public nuevo(){
+  public nuevo() {
+    this.modoFormulario = 'Registrar';
+    this.PedidoSeleccionado = null;
     this.modalVisible = true;
+  }
+
+  public editar(pedido: Pedido) {
+    this.PedidoSeleccionado = pedido;
+    this.formularioPedido.modo = 'Editar';
+    this.modalVisible = true;
+  }
+
+  public cargarDatosEditar() {
+    if (this.modoFormulario === 'Editar') {
+      this.formularioPedido.modo = this.modoFormulario; 
+      this.formularioPedido.form.controls.idpedidoCtrl.setValue(this.PedidoSeleccionado.idpedido);
+      this.formularioPedido.form.controls.idusuarioCtrl.setValue(this.PedidoSeleccionado.idusuario);
+      this.formularioPedido.form.controls.fechaPedidoCtrl.setValue(this.PedidoSeleccionado.fechaPedido);
+      this.formularioPedido.form.controls.fechaEntregaCtrl.setValue(this.PedidoSeleccionado.fechaEntrega);
+    }
   }
 
 }
