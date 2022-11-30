@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonRefresher, ToastController } from '@ionic/angular';
+import { AlertController, IonRefresher, ToastController } from '@ionic/angular';
 import { Usuario } from '../interfaces/usuario.interface';
 import { UsuarioService } from '../servicios/usuario.service';
 import { FormularioUsuarioComponent } from './formulario-usuario/formulario-usuario.component';
@@ -23,7 +23,8 @@ export class UsuarioPage implements OnInit {
 
   constructor(
     private servicioUsuario: UsuarioService,
-    private servicioToast: ToastController
+    private servicioToast: ToastController,
+    private servicioAlert: AlertController
   ) { }
 
   ngOnInit() {
@@ -79,6 +80,48 @@ export class UsuarioPage implements OnInit {
       this.formularioUsuario.form.controls.correoCtrl.setValue(this.usuarioSeleccionado.correo);
       this.formularioUsuario.form.controls.passwordCtrl.setValue(this.usuarioSeleccionado.password);
     }
+  }
+
+  public confirmarEliminacion(usuario: Usuario) {
+    this.servicioAlert.create({
+      header: 'Confirmar eliminación',
+      subHeader: '¿Realmente desea eliminar el usuario?',
+      message: `${usuario.idusuario} - ${usuario.nombre} - ${usuario.apellido} - ${usuario.direccion} - ${usuario.telefono} - ${usuario.ci} - ${usuario.digitoRuc} - ${usuario.correo} (${usuario.password})`,
+      buttons: [
+        {
+          text: 'Cancelar',
+        },
+        {
+          text: 'Eliminar',
+          handler: () => this.eliminar(usuario)                 
+        }
+      ]
+    }).then(a => a.present());
+  }
+
+  private eliminar(usuario: Usuario) {
+    this.servicioUsuario.delete(usuario).subscribe({
+      next: () => {
+        this.cargarUsuario();
+        this.servicioToast.create({
+          header: 'Exito',
+          message: 'El usuario se eliminó correctamente',
+          duration: 2000,
+          position: 'bottom',
+          color: 'success'
+        }).then(t => t.present());
+      },
+      error: (e) => {
+        console.error('Error al eliminar usuario', e);
+        this.servicioToast.create({
+          header: 'Error al eliminar',
+          message: e.message,
+          duration: 3000,
+          position: 'bottom',
+          color: 'danger'
+        }).then(toast => toast.present());
+      }
+    });
   }
 
 }

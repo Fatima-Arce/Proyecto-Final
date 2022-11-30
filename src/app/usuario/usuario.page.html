@@ -9,40 +9,48 @@
 </ion-header>
 
 <ion-content>
-  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+  <ion-fab horizontal="end" vertical="top" slot="fixed" edge>
     <ion-fab-button (click)="nuevo()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
-      </ion-fab>
+  </ion-fab>
   <ion-refresher slot="fixed" (ionRefresh)="cargarUsuario()">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-<ion-list>
-  <ion-item *ngFor="let usuario of listaUsuario" button (click)="editar(usuario)">
-    <ion-note slot="start">{{ usuario.idusuario }}</ion-note>
-<ion-label>
-  <h2>{{ usuario.nombre }}</h2>
-  <p>{{ usuario.apellido }}</p>
-</ion-label>
-  </ion-item>
-</ion-list>
+  <ion-list>
 
-<ion-modal [isOpen]="modalVisible" (didDismiss)="modalVisible = false" (didPresent)="cargarDatosEditar()">
-  <ng-template>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>{{ modoFormulario }} Usuario</ion-title>
-        <ion-buttons slot="end" (click)="modalVisible = false">
-          <ion-button>Cerrar</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
+    <ion-item-sliding *ngFor="let usuario of listaUsuario">
+      <ion-item button (click)="editar(usuario)">
+        <ion-note slot="start">{{ usuario.idusuario }}</ion-note>
+        <ion-label>
+          <h2>{{ usuario.nombre }}</h2>
+          <p>{{ usuario.apellido }}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option color="danger">
+          <ion-icon slot="icon-only" name="trash" (click)="confirmarEliminacion(usuario)"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 
-    <ion-content>
-      <div style="padding: 10px;">
-        <app-formulario-usuario (recargar)="cargarUsuario()"></app-formulario-usuario>
-      </div>     
-    </ion-content>
-  </ng-template>
-</ion-modal>
+  <ion-modal [isOpen]="modalVisible" (didDismiss)="modalVisible = false" (didPresent)="cargarDatosEditar()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{ modoFormulario }} Usuario</ion-title>
+          <ion-buttons slot="end" (click)="modalVisible = false">
+            <ion-button>Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <div style="padding: 10px;">
+          <app-formulario-usuario (recargar)="cargarUsuario()"></app-formulario-usuario>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

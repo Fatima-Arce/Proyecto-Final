@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'detalles-pedido',
     loadChildren: () => import('./detalles-pedido/detalles-pedido.module').then( m => m.DetallesPedidoPageModule)
   },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
 ];
 
 @NgModule({

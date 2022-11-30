@@ -9,7 +9,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+  <ion-fab horizontal="end" vertical="top" slot="fixed" edge>
     <ion-fab-button (click)="nuevo()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
@@ -18,13 +18,21 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-list>
-    <ion-item *ngFor="let pedido of listaPedido" button (click)="editar(pedido)">
-      <ion-note slot="start">{{ pedido.idpedido }}</ion-note>
-      <ion-label>
-        <h2>{{ pedido.fechaPedido }}</h2>
-        <p>{{ pedido.fechaEntrega }}</p>
-      </ion-label>
-    </ion-item>
+
+    <ion-item-sliding *ngFor="let pedido of listaPedido" >
+      <ion-item *ngFor="let pedido of listaPedido" button (click)="editar(pedido)">
+        <ion-note slot="start">{{ pedido.idpedido }}</ion-note>
+        <ion-label>
+          <h2>{{ pedido.fechaPedido }}</h2>
+          <p>{{ pedido.fechaEntrega }}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option color="danger">
+          <ion-icon slot="icon-only" name="trash" (click)="confirmarEliminacion(pedido)"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 
   <ion-modal [isOpen]="modalVisible" (didDismiss)="modalVisible = false" (didPresent)="cargarDatosEditar()">

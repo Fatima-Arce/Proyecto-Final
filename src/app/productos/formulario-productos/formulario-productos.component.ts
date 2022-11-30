@@ -18,6 +18,7 @@ export class FormularioProductosComponent implements OnInit {
   public modo: "Registrar" | "Editar" = "Registrar";
 
   public listaProductos: Productos[] = [];
+  private cantidadPro: number |  null = null;
 
   public form: FormGroup = new FormGroup({
     idproductoCtrl: new FormControl<number>(null, Validators.required),
@@ -57,13 +58,13 @@ export class FormularioProductosComponent implements OnInit {
   guardar() {
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      if(this.modo === 'Registrar'){
+      if (this.modo === 'Registrar') {
         this.registrar();
-      }else{
+      } else {
         this.editar();
-      }     
+      }
     }
-
+  }
   private registrar() {
     const productos: Productos = {
       idproducto: this.form.controls.idproductoCtrl.value,
@@ -125,25 +126,28 @@ export class FormularioProductosComponent implements OnInit {
       }
     })
   }
-}
 
   public incrementarCantidad() {
-  if (this.cantidadPro != null) {
-    this.cantidadPro++;
-  } else {
-    this.cantidadPro = 0;
+    if (this.cantidadPro != null) {
+      this.cantidadPro++;
+    } else {
+      this.cantidadPro = 0;
+    }
+  }
+
+  public disminuirCantidad() {
+    if (this.cantidadPro != null) {
+      if (this.cantidadPro > 0) {
+        this.cantidadPro--;
+      }
+    } else {
+      this.cantidadPro = -1
+    }
   }
 }
 
-  public disminuirCantidad() {
-  if (this.cantidadPro != null) {
-    if (this.cantidadPro > 0) {
-      this.cantidadPro--;
-    }
-  } else {
-    this.cantidadPro = -1
-  }
-}
+
+
 
 
 

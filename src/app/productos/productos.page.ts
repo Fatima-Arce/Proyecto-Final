@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonRefresher, ToastController } from '@ionic/angular';
+import { AlertController, IonRefresher, ToastController } from '@ionic/angular';
 import { Productos } from '../interfaces/productos.interface';
 import { ProductosService } from '../servicios/productos.service';
 import { FormularioProductosComponent } from './formulario-productos/formulario-productos.component';
@@ -23,7 +23,8 @@ export class ProductosPage implements OnInit {
 
   constructor(
     private servicioProductos: ProductosService,
-    private servicioToast: ToastController
+    private servicioToast: ToastController,
+    private servicioAlert: AlertController
   ) { }
 
   ngOnInit() {
@@ -75,4 +76,48 @@ export class ProductosPage implements OnInit {
       this.formularioProductos.form.controls.marcaProCtrl.setValue(this.productoSeleccionado.marcaPro);      
     }
   }
+
+  public confirmarEliminacion(productos: Productos) {
+    this.servicioAlert.create({
+      header: 'Confirmar eliminación',
+      subHeader: '¿Realmente desea eliminar el producto?',
+      message: `${productos.idproducto} - ${productos.nombrePro} - ${productos.precioPro} - ${productos.cantidadPro} - ${productos.produOferta} (${productos.marcaPro})`,
+      buttons: [
+        {
+          text: 'Cancelar',
+        },
+        {
+          text: 'Eliminar',
+          handler: () => this.eliminar(productos)                 
+        }
+      ]
+    }).then(a => a.present());
+  }
+
+  private eliminar(producto: Productos) {
+    this.servicioProductos.delete(producto).subscribe({
+      next: () => {
+        this.cargarProductos();
+        this.servicioToast.create({
+          header: 'Exito',
+          message: 'El producto se eliminó correctamente',
+          duration: 2000,
+          position: 'bottom',
+          color: 'success'
+        }).then(t => t.present());
+      },
+      error: (e) => {
+        console.error('Error al eliminar producto', e);
+        this.servicioToast.create({
+          header: 'Error al eliminar',
+          message: e.message,
+          duration: 3000,
+          position: 'bottom',
+          color: 'danger'
+        }).then(toast => toast.present());
+      }
+    });
+  }
+
+
 }

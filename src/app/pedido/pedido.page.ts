@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonRefresher, ToastController } from '@ionic/angular';
+import { AlertController, IonRefresher, ToastController } from '@ionic/angular';
 import { Pedido } from '../interfaces/pedido.interface';
 import { PedidoService } from '../servicios/pedido.service';
 import { FormularioPedidoComponent } from './formulario-pedido/formulario-pedido.component';
@@ -23,7 +23,8 @@ export class PedidoPage implements OnInit {
 
   constructor(
     private servicioPedido: PedidoService,
-    private servicioToast: ToastController
+    private servicioToast: ToastController,
+    private servicioAlert: AlertController
   ) { }
 
   ngOnInit() {
@@ -72,6 +73,48 @@ export class PedidoPage implements OnInit {
       this.formularioPedido.form.controls.fechaPedidoCtrl.setValue(this.PedidoSeleccionado.fechaPedido);
       this.formularioPedido.form.controls.fechaEntregaCtrl.setValue(this.PedidoSeleccionado.fechaEntrega);
     }
+  }
+
+  public confirmarEliminacion(pedido: Pedido) {
+    this.servicioAlert.create({
+      header: 'Confirmar eliminación',
+      subHeader: '¿Realmente desea eliminar el pedido?',
+      message: `${pedido.idpedido} - ${pedido.idusuario} (${pedido.fechaPedido})`,
+      buttons: [
+        {
+          text: 'Cancelar',
+        },
+        {
+          text: 'Eliminar',
+          handler: () => this.eliminar(pedido)                 
+        }
+      ]
+    }).then(a => a.present());
+  }
+
+  private eliminar(pedido: Pedido) {
+    this.servicioPedido.delete(pedido).subscribe({
+      next: () => {
+        this.cargarPedido();
+        this.servicioToast.create({
+          header: 'Exito',
+          message: 'El pedido se eliminó correctamente',
+          duration: 2000,
+          position: 'bottom',
+          color: 'success'
+        }).then(t => t.present());
+      },
+      error: (e) => {
+        console.error('Error al eliminar pedido', e);
+        this.servicioToast.create({
+          header: 'Error al eliminar',
+          message: e.message,
+          duration: 3000,
+          position: 'bottom',
+          color: 'danger'
+        }).then(toast => toast.present());
+      }
+    });
   }
 
 }

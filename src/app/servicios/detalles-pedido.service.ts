@@ -27,6 +27,6 @@ export class DetallesPedidoService {
   }
 
   public delete(detallespedido: DetallesPedido): Observable<any> {
-    return this.http.delete(`${this.url}/${detallespedido}`, { responseType: 'text' });
+    return this.http.delete(`${this.url}/${detallespedido.iddetallesPedido}`, { responseType: 'text' });
   }
 }

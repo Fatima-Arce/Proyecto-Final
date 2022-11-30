@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonRefresher, ToastController } from '@ionic/angular';
+import { AlertController, IonRefresher, ToastController } from '@ionic/angular';
 import { DetallesPedidoService } from '../servicios/detalles-pedido.service';
 import { DetallesPedido } from '../interfaces/detalles-pedido.interface';
 import { FormularioDetallesPedidoComponent } from './formulario-detalles-pedido/formulario-detalles-pedido.component';
@@ -23,7 +23,8 @@ export class DetallesPedidoPage implements OnInit {
 
   constructor(
     private servicioDetallesPedido: DetallesPedidoService,
-    private servicioToast: ToastController
+    private servicioToast: ToastController,
+    private serviocioAlert: AlertController
   ) { }
 
   ngOnInit() {
@@ -52,25 +53,67 @@ export class DetallesPedidoPage implements OnInit {
     })
   }
 
-  public nuevo(){
+  public nuevo() {
     this.modoFormulario = 'Registrar';
     this.detallesPedidoSeleccionado = null;
-    this.modalVisible = true;   
+    this.modalVisible = true;
   }
 
-  public editar(detalllesPedido: DetallesPedido){
+  public editar(detalllesPedido: DetallesPedido) {
     this.detallesPedidoSeleccionado = detalllesPedido;
     this.formularioDetallesPedido.modo = 'Editar';
     this.modalVisible = true;
   }
 
   public cargarDatosEditar() {
-    if(this.modoFormulario === 'Editar') {
+    if (this.modoFormulario === 'Editar') {
       this.formularioDetallesPedido.modo = this.modoFormulario;
       this.formularioDetallesPedido.form.controls.iddetallesPedidoCtrl.setValue(this.detallesPedidoSeleccionado.iddetallesPedido);
       this.formularioDetallesPedido.form.controls.idproductoCtrl.setValue(this.detallesPedidoSeleccionado.idproducto);
       this.formularioDetallesPedido.form.controls.cantidadCtrl.setValue(this.detallesPedidoSeleccionado.cantidad);
       this.formularioDetallesPedido.form.controls.precioCtrl.setValue(this.detallesPedidoSeleccionado.precio);
     }
+  }
+
+  public confirmarEliminacion(detalllesPedido: DetallesPedido) {
+    this.serviocioAlert.create({
+      header: 'Confirmar eliminación',
+      subHeader: '¿Realmente desea eliminar el detalle pedido?',
+      message: `${detalllesPedido.iddetallesPedido} - ${detalllesPedido.idproducto} (${detalllesPedido.precio})`,
+      buttons: [
+        {
+          text: 'Cancelar',
+        },
+        {
+          text: 'Eliminar',
+          handler: () => this.eliminar(detalllesPedido)                 
+        }
+      ]
+    }).then(a => a.present());
+  }
+
+  private eliminar(detalllesPedido: DetallesPedido) {
+    this.servicioDetallesPedido.delete(detalllesPedido).subscribe({
+      next: () => {
+        this.cargarDetallesPedido();
+        this.servicioToast.create({
+          header: 'Exito',
+          message: 'El detalle pedido se eliminó correctamente',
+          duration: 2000,
+          position: 'bottom',
+          color: 'success'
+        }).then(t => t.present());
+      },
+      error: (e) => {
+        console.error('Error al eliminar detalles pedido', e);
+        this.servicioToast.create({
+          header: 'Error al eliminar',
+          message: e.message,
+          duration: 3000,
+          position: 'bottom',
+          color: 'danger'
+        }).then(toast => toast.present());
+      }
+    });
   }
 }
