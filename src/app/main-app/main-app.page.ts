@@ -8,6 +8,34 @@ import { Router } from '@angular/router';
 })
 export class MainAppPage implements OnInit {
 
+  dockItems: MenuItem[] = [
+    {
+      label: "Pedidos",
+      icon: "assets/pedido.jpg",
+      routerLink: ['pedido']
+    },
+    {
+      label: "Productos",
+      icon: "assets/produ.png",
+      routerLink: ['productos']
+    },
+    {
+      label: "Usuario",
+      icon: "assets/usuario.jpeg",
+      routerLink: ['usuario']
+    },
+    {
+      label: "Detalles Pedido",
+      icon: "assets/detalles.jpg",
+      routerLink: ['detallesPedido']
+    },
+    {
+      label: 'Cerrar Sesion',
+      icon: "assets/cerrar.png",
+      command: () => this.cerrarSesion()
+    }
+  ];
+
   constructor(
     private router : Router
   ) { }
@@ -20,5 +48,6 @@ export class MainAppPage implements OnInit {
     this.router.navigate(['/login']);
   }
 
-
 }
+
+
