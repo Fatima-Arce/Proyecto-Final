@@ -7,7 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 @NgModule({
@@ -19,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
   
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, JwtHelperService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

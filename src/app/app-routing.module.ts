@@ -12,6 +12,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  
+  {
     path: 'productos',
     loadChildren: () => import('./productos/productos.module').then( m => m.ProductosPageModule)
   },
@@ -27,14 +32,7 @@ const routes: Routes = [
     path: 'detalles-pedido',
     loadChildren: () => import('./detalles-pedido/detalles-pedido.module').then( m => m.DetallesPedidoPageModule)
   },
-  {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
-  },
-  {
-    path: 'main-app',
-    loadChildren: () => import('./main-app/main-app.module').then( m => m.MainAppPageModule)
-  },
+  
 ];
 
 @NgModule({

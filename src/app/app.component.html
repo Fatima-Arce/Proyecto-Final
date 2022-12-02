@@ -42,13 +42,16 @@
     </ion-content>
     <ion-footer>
       <ion-menu-toggle>
-        <ion-item *ngIf="servicioSesion.token == null " button lines="none" routerLink="/login" routerLinkActive="seleccionado">
+        <ion-item *ngIf="servicioSesion.token == null" button lines="none" routerLink="/login"
+          routerLinkActive="seleccionado">
           <ion-icon name="login-in" slot="start"></ion-icon>
           <ion-label>Iniciar Sesion</ion-label>
         </ion-item>
-        <ion-item *ngIf="servicioSesion.token != null" buttom lines="none" (click)="cerrarSesion()"></ion-item> 
-        <ion-icon name="log-out" slot="start"></ion-icon>
-        <ion-label>Cerrar Sesion</ion-label>
+        <ion-item *ngIf="servicioSesion.token != null" button lines="none" (click)="cerrarSesion()">
+          <ion-icon name="log-out" slot="start"></ion-icon>
+          <ion-label>Cerrar Sesion</ion-label>
+        </ion-item>
+
       </ion-menu-toggle>
     </ion-footer>
   </ion-menu>
