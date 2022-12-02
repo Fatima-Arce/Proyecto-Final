@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Credenciales } from '../interfaces/credenciales.interface';
+import { Preferences } from '@capacitor/preferences';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +13,17 @@ import { Credenciales } from '../interfaces/credenciales.interface';
 export class SesionService {
 
   private url: string = "http://localhost:3000/sesion";
+  token: string | null = null;
   private timer: any;
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) { 
+    Preferences.get({key: 'token'}).then(pref => {
+      this.token = pref.value;
+      this.procesarToken(pref.value);
+    })
+  }
 
   public iniciar(cred: Credenciales): Observable<{token: string}>{
     return this.http.post<{token: string}>(`${this.url}/iniciar`, cred).pipe(
@@ -50,5 +59,10 @@ export class SesionService {
         })
       }, ejecutarEn)
     }
+  }
+
+  cerrarSesion(){
+    this.token = null;
+    Preferences.remove({key: 'token'});
   }
 }

@@ -18,13 +18,12 @@ export class FormularioProductosComponent implements OnInit {
   public modo: "Registrar" | "Editar" = "Registrar";
 
   public listaProductos: Productos[] = [];
-  private cantidadPro: number |  null = null;
 
   public form: FormGroup = new FormGroup({
     idproductoCtrl: new FormControl<number>(null, Validators.required),
     nombreProCtrl: new FormControl<number>(null, Validators.required),
     precioProCtrl: new FormControl<number>(null, Validators.required),
-    cantidadProCtrl: new FormControl<number>(null, Validators.required),
+    cantidadProCtrl: new FormControl<number>(null, [Validators.required, Validators.min(0)]),
     produOfertaCtrl: new FormControl<string>(null, Validators.required),
     marcaProCtrl: new FormControl<string>(null, Validators.required)
   });
@@ -128,20 +127,22 @@ export class FormularioProductosComponent implements OnInit {
   }
 
   public incrementarCantidad() {
-    if (this.cantidadPro != null) {
-      this.cantidadPro++;
+    if (this.form.controls.cantidadProCtrl.value != null) {
+      const cantActual: number = this.form.controls.cantidadProCtrl.value;
+      this.form.controls.cantidadProCtrl.setValue(cantActual+1);
     } else {
-      this.cantidadPro = 0;
+      this.form.controls.cantidadProCtrl.setValue(0);
     }
   }
 
   public disminuirCantidad() {
-    if (this.cantidadPro != null) {
-      if (this.cantidadPro > 0) {
-        this.cantidadPro--;
+    if (this.form.controls.cantidadProCtrl.value != null) {
+      const cantActual: number = this.form.controls.cantidadProCtrl.value;
+      if(cantActual > 0) {
+        this.form.controls.cantidadProCtrl.setValue(cantActual-1);
       }
     } else {
-      this.cantidadPro = -1
+      this.form.controls.cantidadProCtrl.setValue(-1);
     }
   }
 }

@@ -24,7 +24,7 @@ const routes: Routes = [
     loadChildren: () => import('./pedido/pedido.module').then( m => m.PedidoPageModule)
   },
   {
-    path: 'detalles-pedido',
+    path: 'detallesPedido',
     loadChildren: () => import('./detalles-pedido/detalles-pedido.module').then( m => m.DetallesPedidoPageModule)
   },
   {
@@ -32,8 +32,8 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'main-app',
-    loadChildren: () => import('./main-app/main-app.module').then( m => m.MainAppPageModule)
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
 ];
 

@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Preferences } from '@capacitor/preferences';
-import { Message } from 'angular';
-import { Credenciales } from '../interfaces/credenciales.interface';
-import { SesionService } from '../servicios/sesion.service'
+import { Credenciales } from './../interfaces/credenciales.interface';
+import { SesionService } from '../servicios/sesion.service';
+import { Subscriber } from 'rxjs';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -17,24 +15,16 @@ export class LoginPage implements OnInit {
   public form: FormGroup = new FormGroup({
     ci: new FormControl<number | null>(null, Validators.required),
     password: new FormControl<string | null>(null, Validators.required)
-  });
-  public mensajes: Message[] = [];
 
+  });
+  
   constructor(
     private servicioSesion: SesionService,
-    private router: Router
+    private servicioToast: ToastController,
   ) { }
 
-  ngOnInit() {
-    const token: string | null = Preferences.getItem('token');
-    if (token) {
-      const jwt: JwtHelperService = new JwtHelperService();
-      if (!jwt.isTokenExpired(token)) {
-        this.router.navigate(['/app']);
-      }
-    }
+  ngOnInit(): void {
   }
-
   public iniciarSesion() {
     this.actualizarValidacion();
     if (this.form.valid) {
@@ -44,35 +34,44 @@ export class LoginPage implements OnInit {
       }
       this.servicioSesion.iniciar(cred).subscribe({
         next: (respuesta) => {
-          this.mensajes = [{ severity: 'success', summary: 'Inicio de sesión correcto' }];
-          this.router.navigate(['/app']);
+          this.servicioToast.create({
+            header: 'Sesión iniciada',
+            duration: 3500,
+            color: 'success'
+          }).then(t => t.present())
         },
         error: (e) => {
-          console.error('Error al iniciar sesion', e)
+          console.error('Error al iniciar sesion', e);
           if (e.status === 401) {
-            this.mensajes = [{ severity: 'error', summary: 'CI o Contraseña incorrecta' }]
+            this.servicioToast.create({
+              header: 'CI o contrasenña incorrecta',
+              message: e.message,
+              duration: 3500,
+              color: 'danger'
+            }).then(t => t.present())
           } else {
-            this.mensajes = [{ severity: 'error', summary: 'Error al iniciar sesion', detail: e.message }]
+            this.servicioToast.create({
+              header: 'Error al iniciar sesion',
+              message: e.message,
+              duration: 3500,
+              color: 'danger'
+            }).then(t => t.present())
           }
         }
       });
     }
     console.log(this.form.get('ci')?.value);
     console.log(this.form.get('password')?.value);
-  }
 
+  }
   private actualizarValidacion() {
     if (this.form.get('ci')?.invalid) {
-      this.form.get('ci')?.markAsTouched();
+      this.form.get('ci')?.markAllAsTouched();
       this.form.get('ci')?.markAsDirty();
     }
     if (this.form.get('password')?.invalid) {
-      this.form.get('password')?.markAsTouched();
+      this.form.get('password')?.markAllAsTouched();
       this.form.get('password')?.markAsDirty();
     }
   }
 }
-
-
-
-
