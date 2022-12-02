@@ -1,38 +1,30 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>login</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <form [formGroup]="form">
+    <ion-list class="ion-padding">
+      <ion-item fill="outline">
+        <ion-label position="floating">No. Documento </ion-label>
+        <ion-input type="number" inputmode="number" formControlName="ciCtrl"></ion-input>
+        <ion-note *ngIf="form.controls.ciCtrl.touched" slot="error">Ingrese el numero de Documento</ion-note>
+      </ion-item>
+      <ion-item fill="outline" class="ion-margin-top">
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password" formControlName="passwordCtrl"></ion-input>
+        <ion-note *ngIf="form.controls.passwordCtrl.touched" slot="error">Ingrese la Contraseña</ion-note>
+      </ion-item>
+    </ion-list>
+  </form>
+  <ion-button expand="full" class="ion-margin-start ion-margin-end" (click)="iniciarSesion()">
+    <ion-icon name="lock-open" slot="start"></ion-icon>
+    Login
+  </ion-button>
 </ion-content>
-  
-
-<div class="centrado">
-  <div class="tarjeta tarjeta-login">
-      <form [formGroup]="form">
-       <div class="field">
-          <span class="p-input-icon-left w-full">
-            <i class="pi pi-user"></i>  
-          <input pInputText placeholder="Nro Documento" class="w-full" formControlName="ci">
-          </span>  
-          <small *ngIf="form.get('ci')?.invalid && form.get('ci')?.dirty" class="p-error block">Ingrese el nro. de documento.</small>
-       </div>
-       <div class="field">
-          <span class="p-input-icon-left w-full">
-              <i class="pi pi-key"></i>
-              <input pPassword type="password" pInputText placeholder="Contraseña" class="w-full" formControlName="password"> 
-          </span>
-          <small *ngIf="form.get('password')?.invalid && form.get('password')?.dirty" class="p-error block">Ingrese la contraseña</small>
-       </div>
-       <div class="field">
-          <button pButton label="Login" class="w-full" icon="pi pi-unlock" (click)="iniciarSesion()"></button>
-       </div>
-       <div class="field">
-          <p-messages [(value)]="mensajes"></p-messages>
-       </div>
-      </form>
-  </div>
-</div>
-
