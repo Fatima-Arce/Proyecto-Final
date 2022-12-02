@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Message } from 'primeng/api';
+import { Preferences } from '@capacitor/preferences';
+import { Message } from 'angular';
 import { Credenciales } from '../interfaces/credenciales.interface';
 import { SesionService } from '../servicios/sesion.service'
 
@@ -25,7 +26,7 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    const token: string | null = localStorage.getItem('token');
+    const token: string | null = Preferences.getItem('token');
     if (token) {
       const jwt: JwtHelperService = new JwtHelperService();
       if (!jwt.isTokenExpired(token)) {
