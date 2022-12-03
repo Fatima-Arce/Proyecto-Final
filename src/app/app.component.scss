@@ -6,3 +6,10 @@ ion-item.seleccionado{
 ion-item.seleccionado ion-icon{
     color: var(--ion-color-primary);
 }
+
+ion-content {
+   
+    background-size: cover;
+    background-position: center;
+    background-color: transparent;
+  }

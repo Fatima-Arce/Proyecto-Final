@@ -13,7 +13,7 @@
 
     <form [formGroup]="form">
       <ion-list class="ion-padding">
-        <ion-item fill="outline">
+        <ion-item fill="outline" class="item-espaciado">
           <ion-label position="floating">No. Documento </ion-label>
           <ion-input type="number" inputmode="number" formControlName="ciCtrl"></ion-input>
           <ion-note *ngIf="form.controls.ciCtrl.touched" slot="error">Ingrese el numero de Documento</ion-note>
