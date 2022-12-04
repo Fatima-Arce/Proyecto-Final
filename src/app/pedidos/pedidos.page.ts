@@ -12,7 +12,7 @@ import { FormularioPedidoComponent } from './formulario-pedido/formulario-pedido
 export class PedidosPage implements OnInit {
 
   @ViewChild(IonRefresher) refresher!: IonRefresher;
-  @ViewChild(FormularioPedidoComponent) formularioPedido!: FormularioPedidoComponent
+  @ViewChild(FormularioPedidoComponent) formularioPedido!: FormularioPedidoComponent;
 
   public listaPedidos: Pedido[] = [];
   public cargandoPedidos: boolean = false;
@@ -40,10 +40,10 @@ export class PedidosPage implements OnInit {
         this.cargandoPedidos = false;
       },
       error: (e) => {
-        console.error('Error al consultar pedido', e);
+        console.error('Error al consultar pedidos', e);
         this.cargandoPedidos = false;
         this.servicioToast.create({
-          header: 'Error al cargar pedido',
+          header: 'Error al cargar pedidos',
           message: e.message,
           duration: 3000,
           position: 'bottom',
@@ -93,9 +93,9 @@ export class PedidosPage implements OnInit {
   }
 
   private eliminar(pedido: Pedido) {
-    this.servicioPedido.delete(pedido).subscribe({
+    this.servicioPedidos.delete(pedido).subscribe({
       next: () => {
-        this.cargarPedido();
+        this.cargarPedidos();
         this.servicioToast.create({
           header: 'Exito',
           message: 'El pedido se eliminó correctamente',

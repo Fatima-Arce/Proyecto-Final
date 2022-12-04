@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { Producto } from 'src/app/interface/producto.interface';
-import { PedidoService } from 'src/app/servicios/pedidos.service';
+import { PedidosService } from 'src/app/servicios/pedidos.service';
 import { ProductosService } from 'src/app/servicios/productos.service';
 
 @Component({
@@ -31,7 +31,7 @@ export class FormularioProductoComponent implements OnInit {
   constructor(
     private servicioProductos: ProductosService,
     private servicioToast: ToastController,
-    private servicioPedido: PedidoService
+    private servicioPedidos: PedidosService
   ) { }
 
   private cargarProductos(){
