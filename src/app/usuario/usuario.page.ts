@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController, IonRefresher, ToastController } from '@ionic/angular';
-import { Usuario } from '../interfaces/usuario.interface';
+import { Usuario } from '../interface/usuario.interface';
 import { UsuarioService } from '../servicios/usuario.service';
 import { FormularioUsuarioComponent } from './formulario-usuario/formulario-usuario.component';
 
@@ -62,7 +62,7 @@ export class UsuarioPage implements OnInit {
 
   public editar(usuario: Usuario){
     this.usuarioSeleccionado = usuario;
-    this.formularioUsuario.modo = 'Editar';
+    this.modoFormulario = 'Editar';
     this.modalVisible = true;
     
   }

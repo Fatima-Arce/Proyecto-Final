@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertController, IonicModule, ToastController } from '@ionic/angular';
 import { ProductosPageRoutingModule } from './productos-routing.module';
 import { ProductosPage } from './productos.page';
-import { FormularioProductosComponent } from './formulario-productos/formulario-productos.component';
+import { FormularioProductoComponent } from './formulario-producto/formulario-producto.component';
 
 @NgModule({
   imports: [
@@ -14,7 +14,7 @@ import { FormularioProductosComponent } from './formulario-productos/formulario-
     ProductosPageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [ProductosPage, FormularioProductosComponent],
+  declarations: [ProductosPage, FormularioProductoComponent],
   providers: [
     ToastController,
     AlertController

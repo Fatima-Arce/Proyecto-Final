@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController, IonRefresher, ToastController } from '@ionic/angular';
 import { DetallesPedidoService } from '../servicios/detalles-pedido.service';
-import { DetallesPedido } from '../interfaces/detalles-pedido.interface';
+import { DetallesPedido } from '../interface/detalles-pedido.interface';
 import { FormularioDetallesPedidoComponent } from './formulario-detalles-pedido/formulario-detalles-pedido.component';
 
 @Component({
@@ -61,7 +61,7 @@ export class DetallesPedidoPage implements OnInit {
 
   public editar(detalllesPedido: DetallesPedido) {
     this.detallesPedidoSeleccionado = detalllesPedido;
-    this.formularioDetallesPedido.modo = 'Editar';
+    this.modoFormulario = 'Editar';
     this.modalVisible = true;
   }
 
@@ -72,6 +72,7 @@ export class DetallesPedidoPage implements OnInit {
       this.formularioDetallesPedido.form.controls.idproductoCtrl.setValue(this.detallesPedidoSeleccionado.idproducto);
       this.formularioDetallesPedido.form.controls.cantidadCtrl.setValue(this.detallesPedidoSeleccionado.cantidad);
       this.formularioDetallesPedido.form.controls.precioCtrl.setValue(this.detallesPedidoSeleccionado.precio);
+      this.formularioDetallesPedido.form.controls.idpedidoCtrl.setValue(this.detallesPedidoSeleccionado.idpedido);
     }
   }
 
@@ -79,7 +80,7 @@ export class DetallesPedidoPage implements OnInit {
     this.serviocioAlert.create({
       header: 'Confirmar eliminación',
       subHeader: '¿Realmente desea eliminar el detalle pedido?',
-      message: `${detalllesPedido.iddetallesPedido} - ${detalllesPedido.idproducto} (${detalllesPedido.precio})`,
+      message: `${detalllesPedido.iddetallesPedido} - ${detalllesPedido.idproducto} (${detalllesPedido.precio} - ${detalllesPedido.idpedido})`,
       buttons: [
         {
           text: 'Cancelar',

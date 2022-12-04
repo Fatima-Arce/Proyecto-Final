@@ -8,10 +8,10 @@
 
     <ion-item fill="outline" class="item-espaciado">
       <ion-label position="floating">Nombre Producto</ion-label>
-      <ion-select formControlName="nombreProCtrl">
-        <ion-select-option *ngFor="let productos of listaProductos" [value]="productos.idproducto">{{
-          productos.nombrePro }}</ion-select-option>
-      </ion-select>
+      <ion-input formControlName="nombreProCtrl">
+        <ion-select-option *ngFor="let producto of listaProductos" [value]="producto.idproducto">{{
+          producto.nombrePro }}</ion-select-option>
+      </ion-input>
       <ion-note slot="error" *ngIf="form.controls.nombreProCtrl.touched">Ingrese el nombre producto</ion-note>
     </ion-item>
 
@@ -41,7 +41,7 @@
 
     <ion-item fill="outline" class="item-espaciado">
       <ion-label position="floating">Marca Producto</ion-label>
-      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="marcaProCtrl"></ion-input>
+      <ion-input inputmode="text" type="text" placeholder="Ingresar..." formControlName="marcaProCtrl"></ion-input>
       <ion-note slot="error" *ngIf="form.controls.marcaProCtrl.touched">Ingrese la marca del producto</ion-note>
     </ion-item>
   </ion-list>

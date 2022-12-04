@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Usuario } from '../interfaces/usuario.interface';
+import { Usuario } from '../interface/usuario.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
 
-  url: string = "http://localhost:3000/libreria"
+  url: string = "http://localhost:3000/usuario"
 
   constructor(
     private http: HttpClient

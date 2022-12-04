@@ -1,47 +1,47 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController, IonRefresher, ToastController } from '@ionic/angular';
-import { Pedido } from '../interfaces/pedido.interface';
-import { PedidoService } from '../servicios/pedido.service';
+import { Pedido } from '../interface/pedido.interface';
+import { PedidosService } from '../servicios/pedidos.service';
 import { FormularioPedidoComponent } from './formulario-pedido/formulario-pedido.component';
 
 @Component({
-  selector: 'app-pedido',
-  templateUrl: './pedido.page.html',
-  styleUrls: ['./pedido.page.scss'],
+  selector: 'app-pedidos',
+  templateUrl: './pedidos.page.html',
+  styleUrls: ['./pedidos.page.scss'],
 })
-export class PedidoPage implements OnInit {
+export class PedidosPage implements OnInit {
 
   @ViewChild(IonRefresher) refresher!: IonRefresher;
   @ViewChild(FormularioPedidoComponent) formularioPedido!: FormularioPedidoComponent
 
-  public listaPedido: Pedido[] = [];
-  public cargandoPedido: boolean = false;
+  public listaPedidos: Pedido[] = [];
+  public cargandoPedidos: boolean = false;
   public modalVisible: boolean = false;
 
   private PedidoSeleccionado: Pedido | null = null;
   public modoFormulario: 'Registrar' | 'Editar' = 'Registrar';
 
   constructor(
-    private servicioPedido: PedidoService,
+    private servicioPedidos: PedidosService,
     private servicioToast: ToastController,
     private servicioAlert: AlertController
   ) { }
 
   ngOnInit() {
-    this.cargarPedido();
+    this.cargarPedidos();
   }
 
-  public cargarPedido() {
+  public cargarPedidos() {
     this.refresher?.complete();
-    this.cargandoPedido = true;
-    this.servicioPedido.get().subscribe({
-      next: (pedido) => {
-        this.listaPedido = pedido;
-        this.cargandoPedido = false;
+    this.cargandoPedidos = true;
+    this.servicioPedidos.get().subscribe({
+      next: (pedidos) => {
+        this.listaPedidos = pedidos;
+        this.cargandoPedidos = false;
       },
       error: (e) => {
         console.error('Error al consultar pedido', e);
-        this.cargandoPedido = false;
+        this.cargandoPedidos = false;
         this.servicioToast.create({
           header: 'Error al cargar pedido',
           message: e.message,
@@ -61,7 +61,7 @@ export class PedidoPage implements OnInit {
 
   public editar(pedido: Pedido) {
     this.PedidoSeleccionado = pedido;
-    this.formularioPedido.modo = 'Editar';
+    this.modoFormulario = 'Editar';
     this.modalVisible = true;
   }
 

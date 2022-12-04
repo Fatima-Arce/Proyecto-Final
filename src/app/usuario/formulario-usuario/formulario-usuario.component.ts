@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
-import { Usuario } from 'src/app/interfaces/usuario.interface';
+import { Usuario } from 'src/app/interface/usuario.interface';
 import { ProductosService } from 'src/app/servicios/productos.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 

@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
-import { Pedido } from 'src/app/interfaces/pedido.interface';
+import { Pedido } from 'src/app/interface/pedido.interface';
 import { DetallesPedidoService } from 'src/app/servicios/detalles-pedido.service';
-import { PedidoService } from 'src/app/servicios/pedido.service';
+import { PedidoService } from 'src/app/servicios/pedidos.service';
 
 @Component({
   selector: 'app-formulario-pedido',

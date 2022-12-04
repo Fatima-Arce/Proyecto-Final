@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Credenciales } from './../interfaces/credenciales.interface';
+import { Credenciales } from '../interface/credenciales.interface';
 import { SesionService } from '../servicios/sesion.service';
 import { Subscriber } from 'rxjs';
 import { ToastController } from '@ionic/angular';

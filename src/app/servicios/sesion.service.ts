@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Credenciales } from '../interfaces/credenciales.interface';
+import { Credenciales } from '../interface/credenciales.interface';
 import { Preferences } from '@capacitor/preferences';
 
 @Injectable({

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { SesionGuard } from './guards/sesion.guard';
 
 const routes: Routes = [
   {
@@ -18,18 +19,22 @@ const routes: Routes = [
   
   {
     path: 'productos',
+    canActivate: [SesionGuard],
     loadChildren: () => import('./productos/productos.module').then( m => m.ProductosPageModule)
   },
   {
     path: 'usuario',
+    canActivate: [SesionGuard],
     loadChildren: () => import('./usuario/usuario.module').then( m => m.UsuarioPageModule)
   },
   {
     path: 'pedido',
-    loadChildren: () => import('./pedido/pedido.module').then( m => m.PedidoPageModule)
+    canActivate: [SesionGuard],
+    loadChildren: () => import('./pedidos/pedidos.module').then( m => m.PedidosPageModule)
   },
   {
     path: 'detallesPedido',
+    canActivate: [SesionGuard],
     loadChildren: () => import('./detalles-pedido/detalles-pedido.module').then( m => m.DetallesPedidoPageModule)
   },
   {

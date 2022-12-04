@@ -23,6 +23,12 @@
       <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="precioCtrl"></ion-input>
       <ion-note slot="error" *ngIf="form.controls.precioCtrl.touched">Ingrese el precio</ion-note>
     </ion-item>
+    
+    <ion-item fill="outline">
+      <ion-label position="floating">idpedido</ion-label>
+      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="precioCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.idpedidoCtrl.touched">Ingrese el idpedido</ion-note>
+    </ion-item>
   </ion-list>
 
   <ion-button expand="full" (click)="guardar()">

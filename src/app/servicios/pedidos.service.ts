@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Pedido } from '../interfaces/pedido.interface';
+import { Pedido } from '../interface/pedido.interface';
 
 
 @Injectable({
@@ -9,7 +9,7 @@ import { Pedido } from '../interfaces/pedido.interface';
 })
 export class PedidoService {
 
-  url: string = "http://localhost:3000/libreria"
+  url: string = "http://localhost:3000/pedido"
 
   constructor(
     private http: HttpClient
