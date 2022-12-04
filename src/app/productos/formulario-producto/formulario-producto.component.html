@@ -9,7 +9,7 @@
     <ion-item fill="outline" class="item-espaciado">
       <ion-label position="floating">Nombre Producto</ion-label>
       <ion-input formControlName="nombreProCtrl">
-        <ion-select-option *ngFor="let producto of listaProducto" [value]="producto.idproducto">{{
+        <ion-select-option *ngFor="let producto of listaProductos" [value]="producto.idproducto">{{
           producto.nombrePro }}</ion-select-option>
       </ion-input>
       <ion-note slot="error" *ngIf="form.controls.nombreProCtrl.touched">Ingrese el nombre producto</ion-note>

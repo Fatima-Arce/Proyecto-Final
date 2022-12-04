@@ -17,7 +17,7 @@ export class FormularioProductoComponent implements OnInit {
 
   public modo: "Registrar" | "Editar" = "Registrar";
 
-  public listaProducto: Producto[] = [];
+  public listaProductos: Producto[] = [];
 
   public form: FormGroup = new FormGroup({
     idproductoCtrl: new FormControl<number>(null, Validators.required),
@@ -35,10 +35,9 @@ export class FormularioProductoComponent implements OnInit {
   ) { }
 
   private cargarProductos(){
-    console.log('Error al cargar')
     this.servicioProductos.get().subscribe({
       next: (productos) => {
-        this.listaProducto = productos;
+        this.listaProductos = productos;
       },
       error: (e) => {
         console.error('Error al cargar Productos', e);

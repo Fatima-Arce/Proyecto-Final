@@ -30,7 +30,7 @@ export class FormularioPedidoComponent implements OnInit {
     private servivioToast: ToastController,
   ) { }
 
-  private cargarPedido() {
+  private cargarPedidos() {
     this.servicioPedidos.get().subscribe({
       next: (pedido) => {
         this.listaPedido = pedido;
@@ -47,7 +47,7 @@ export class FormularioPedidoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cargarPedido();
+    this.cargarPedidos();
   }
 
   guardar() {
