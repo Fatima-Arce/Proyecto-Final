@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Pedido</ion-title>
-    <ion-progress-bar *ngIf="cargandoPedido" type="indeterminate"></ion-progress-bar>
+    <ion-progress-bar *ngIf="cargandoPedidos" type="indeterminate"></ion-progress-bar>
   </ion-toolbar>
 </ion-header>
 
@@ -14,13 +14,13 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <ion-refresher slot="fixed" (ionRefresh)="cargarPedido()">
+  <ion-refresher slot="fixed" (ionRefresh)="cargarPedidos()">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-list>
 
-    <ion-item-sliding *ngFor="let pedido of listaPedido" >
-      <ion-item *ngFor="let pedido of listaPedido" button (click)="editar(pedido)">
+    <ion-item-sliding *ngFor="let pedido of listaPedidos" >
+      <ion-item *ngFor="let pedido of listaPedidos" button (click)="editar(pedido)">
         <ion-note slot="start">{{ pedido.idpedido }}</ion-note>
         <ion-label>
           <h2>{{ pedido.fechaPedido }}</h2>
@@ -48,7 +48,7 @@
 
       <ion-content>
         <div style="padding: 10px;">
-          <app-formulario-pedido (recargar)="cargarPedido()"></app-formulario-pedido>
+          <app-formulario-pedido (recargar)="cargarPedidos()"></app-formulario-pedido>
         </div> 
       </ion-content>
 

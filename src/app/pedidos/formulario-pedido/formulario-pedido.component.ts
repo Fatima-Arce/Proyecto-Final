@@ -2,8 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { Pedido } from 'src/app/interface/pedido.interface';
-import { DetallesPedidoService } from 'src/app/servicios/detalles-pedido.service';
-import { PedidoService } from 'src/app/servicios/pedidos.service';
+import { PedidosService } from 'src/app/servicios/pedidos.service';
 
 @Component({
   selector: 'app-formulario-pedido',
@@ -27,13 +26,12 @@ export class FormularioPedidoComponent implements OnInit {
   });
 
   constructor(
-    private servicioPedido: PedidoService,
+    private servicioPedidos: PedidosService,
     private servivioToast: ToastController,
-    private servicioDetallesPedido: DetallesPedidoService
   ) { }
 
   private cargarPedido() {
-    this.servicioPedido.get().subscribe({
+    this.servicioPedidos.get().subscribe({
       next: (pedido) => {
         this.listaPedido = pedido;
       },
@@ -70,7 +68,7 @@ export class FormularioPedidoComponent implements OnInit {
       fechaPedido: this.form.controls.fechaPedidoCtrl.value,
       fechaEntrega: this.form.controls.fechaEntregaCtrl.value,
     }
-    this.servicioPedido.post(pedido).subscribe({
+    this.servicioPedidos.post(pedido).subscribe({
       next: () => {
         this.recargar.emit(true);
         this.servivioToast.create({
@@ -99,12 +97,12 @@ export class FormularioPedidoComponent implements OnInit {
       fechaPedido: this.form.controls.fechaPedidoCtrl.value,
       fechaEntrega: this.form.controls.fechaEntregaCtrl.value,
     }
-    this.servicioPedido.put(pedido).subscribe({
+    this.servicioPedidos.put(pedido).subscribe({
       next: () => {
         this.recargar.emit(true);
         this.servivioToast.create({
           header: 'Exito',
-          message: 'Se editó el pedido',
+          message: 'Se editó correctamente el pedido',
           duration: 2000,
           color: 'success'
         }).then(t => t.present())
@@ -118,6 +116,6 @@ export class FormularioPedidoComponent implements OnInit {
           color: 'danger'
         }).then(t => t.present());
       }
-    });
+    })
   }
 }

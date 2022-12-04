@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { DetallesPedido } from 'src/app/interface/detalles-pedido.interface';
 import { DetallesPedidoService } from 'src/app/servicios/detalles-pedido.service';
-import { PedidoService } from 'src/app/servicios/pedidos.service';
+import { PedidosService } from 'src/app/servicios/pedidos.service';
 
 @Component({
   selector: 'app-formulario-detalles-pedido',
@@ -30,7 +30,7 @@ export class FormularioDetallesPedidoComponent implements OnInit {
   constructor(
     private servicioDetallesPedido: DetallesPedidoService,
     private servivioToast: ToastController,
-    private servicioPedido: PedidoService
+    private servicioPedidos: PedidosService
   ) { }
 
   private cargarDetallesPedido() {
