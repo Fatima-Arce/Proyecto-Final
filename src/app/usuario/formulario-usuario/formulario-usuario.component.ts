@@ -28,7 +28,8 @@ export class FormularioUsuarioComponent implements OnInit {
     ciCtrl: new FormControl<number>(null, Validators.required),
     digitoRucCtrl: new FormControl<number>(null, Validators.required),
     correoCtrl: new FormControl<string>(null, Validators.required),
-    passwordCtrl: new FormControl<string>(null, Validators.required)
+    passwordCtrl: new FormControl<string>(null, Validators.required),
+    idtipoCtrl: new FormControl<number>(null, Validators.required)
   });
 
 
@@ -80,6 +81,7 @@ export class FormularioUsuarioComponent implements OnInit {
       digitoRuc: this.form.controls.digitoRucCtrl.value,
       correo: this.form.controls.correoCtrl.value,
       password: this.form.controls.passwordCtrl.value,
+      idtipo: this.form.controls.idtipoCtrl.value,
       
     }
     this.servicioUsuario.post(usuario).subscribe({
@@ -115,6 +117,7 @@ export class FormularioUsuarioComponent implements OnInit {
       digitoRuc: this.form.controls.digitoRucCtrl.value,
       correo: this.form.controls.correoCtrl.value,
       password: this.form.controls.passwordCtrl.value,
+      idtipo: this.form.controls.idtipoCtrl.value
       
     }
     this.servicioUsuario.put(usuario).subscribe({

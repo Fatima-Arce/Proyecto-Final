@@ -26,7 +26,7 @@
 
     <ion-item fill="outline">
       <ion-label position="floating">Telefono</ion-label>
-      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="telefonoCtrl"></ion-input>
+      <ion-input inputmode="text" type="text" placeholder="Ingresar..." formControlName="telefonoCtrl"></ion-input>
       <ion-note slot="error" *ngIf="form.controls.telefonoCtrl.touched">Ingrese el n° de telefono</ion-note>
     </ion-item>
 
@@ -50,8 +50,14 @@
 
     <ion-item fill="outline">
       <ion-label position="floating">Password</ion-label>
-      <ion-input inputmode="text" type="password" placeholder="Ingresar..." formControlName="passwordCtrl"></ion-input>
+      <ion-input inputmode="text" type="text" placeholder="Ingresar..." formControlName="passwordCtrl"></ion-input>
       <ion-note slot="error" *ngIf="form.controls.passwordCtrl.touched">Ingrese el password</ion-note>
+    </ion-item>
+
+    <ion-item fill="outline">
+      <ion-label position="floating">Idtipo</ion-label>
+      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="idtipoCtrl"></ion-input>
+      <ion-note slot="error" *ngIf="form.controls.idtipoCtrl.touched">Ingrese el Idtipo</ion-note>
     </ion-item>
   </ion-list>
 

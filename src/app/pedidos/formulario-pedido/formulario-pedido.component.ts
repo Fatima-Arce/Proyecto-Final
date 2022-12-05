@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { Pedido } from 'src/app/interface/pedido.interface';
 import { PedidosService } from 'src/app/servicios/pedidos.service';
+import { Usuario } from 'src/app/interface/usuario.interface';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
 
 @Component({
   selector: 'app-formulario-pedido',
@@ -16,29 +18,33 @@ export class FormularioPedidoComponent implements OnInit {
 
   public modo: "Registrar" | "Editar" = "Registrar";
 
-  public listaPedido: Pedido[] = [];
+  public listaPedidos: Pedido[] = [];
+  public listaUsuario : Usuario[] = [];
 
   public form: FormGroup = new FormGroup({
     idpedidoCtrl: new FormControl<number>(null, Validators.required),
     idusuarioCtrl: new FormControl<number>(null, Validators.required),
-    fechaPedidoCtrl: new FormControl<number>(null, Validators.required),
-    fechaEntregaCtrl: new FormControl<number>(null, Validators.required)
+    fechaPedidoCtrl: new FormControl<Date>(null, Validators.required),
+    fechaEntregaCtrl: new FormControl<Date>(null, Validators.required)
   });
 
   constructor(
     private servicioPedidos: PedidosService,
     private servivioToast: ToastController,
+    private servicioUsuario: UsuarioService
   ) { }
 
-  private cargarPedidos() {
-    this.servicioPedidos.get().subscribe({
-      next: (pedido) => {
-        this.listaPedido = pedido;
+
+
+  private cargarUsuario() {
+    this.servicioUsuario.get().subscribe({
+      next: (usuario) => {
+        this.listaUsuario = usuario;
       },
       error: (e) => {
-        console.error('Error al cargar Pedido', e);
+        console.error('Error al cargar Usuario', e);
         this.servivioToast.create({
-          header: 'Error al cargar Pedido',
+          header: 'Error al cargar Usuario',
           message: e.error,
           color: 'danger'
         })
@@ -47,7 +53,7 @@ export class FormularioPedidoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cargarPedidos();
+    this.cargarUsuario();
   }
 
   guardar() {

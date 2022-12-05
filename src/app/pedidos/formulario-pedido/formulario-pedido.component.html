@@ -8,19 +8,22 @@
 
     <ion-item fill="outline" class="item-espaciado">
       <ion-label position="floating">idusuario</ion-label>
-      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="idusuarioCtrl"></ion-input>
-      <ion-note slot="error" *ngIf="form.controls.idusuarioCtrl.touched">Ingrese un idusuario</ion-note>
+      <ion-select formControlName="idusuarioCtrl">
+      <ion-select-option *ngFor="let usuario of listaUsuario"[value]="usuario.idusuario">{{ usuario.idusuario }}</ion-select-option>
+    </ion-select>
+    <ion-note slot="error" *ngIf="form.controls.idusuarioCtrl.touched">Seleccione Usuario </ion-note>
     </ion-item>
+  
 
     <ion-item fill="outline" class="item-espaciado">
       <ion-label position="floating">Fecha Pedido</ion-label>
-      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="fechaPedidoCtrl"></ion-input>
+      <ion-datetime placeholder="Ingresar..." formControlName="fechaPedidoCtrl"></ion-datetime>
       <ion-note slot="error" *ngIf="form.controls.fechaPedidoCtrl.touched">Ingrese la fecha pedido</ion-note>
     </ion-item>
 
     <ion-item fill="outline">
       <ion-label position="floating">Fecha Entrega</ion-label>
-      <ion-input inputmode="number" type="number" placeholder="Ingresar..." formControlName="fechaEntregaCtrl"></ion-input>
+      <ion-datetime placeholder="Ingresar..." formControlName="fechaEntregaCtrl"></ion-datetime>
       <ion-note slot="error" *ngIf="form.controls.fechaEntregaCtrl.touched">Ingrese la fecha entrega</ion-note>
     </ion-item>
   </ion-list>

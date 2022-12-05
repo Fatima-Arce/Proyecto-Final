@@ -79,6 +79,7 @@ export class UsuarioPage implements OnInit {
       this.formularioUsuario.form.controls.digitoRucCtrl.setValue(this.usuarioSeleccionado.digitoRuc);
       this.formularioUsuario.form.controls.correoCtrl.setValue(this.usuarioSeleccionado.correo);
       this.formularioUsuario.form.controls.passwordCtrl.setValue(this.usuarioSeleccionado.password);
+      this.formularioUsuario.form.controls.idtipoCtrl.setValue(this.usuarioSeleccionado.idtipo);
     }
   }
 
@@ -86,7 +87,7 @@ export class UsuarioPage implements OnInit {
     this.servicioAlert.create({
       header: 'Confirmar eliminación',
       subHeader: '¿Realmente desea eliminar el usuario?',
-      message: `${usuario.idusuario} - ${usuario.nombre} - ${usuario.apellido} - ${usuario.direccion} - ${usuario.telefono} - ${usuario.ci} - ${usuario.digitoRuc} - ${usuario.correo} (${usuario.password})`,
+      message: `${usuario.idusuario} - ${usuario.nombre} - ${usuario.apellido} - ${usuario.direccion} - ${usuario.telefono} - ${usuario.ci} - ${usuario.digitoRuc} - ${usuario.correo} (${usuario.password}) - ${usuario.idtipo}`,
       buttons: [
         {
           text: 'Cancelar',

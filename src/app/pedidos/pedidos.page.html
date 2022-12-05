@@ -23,8 +23,8 @@
       <ion-item *ngFor="let pedido of listaPedidos" button (click)="editar(pedido)">
         <ion-note slot="start">{{ pedido.idpedido }}</ion-note>
         <ion-label>
-          <h2>{{ pedido.fechaPedido }}</h2>
-          <p>{{ pedido.fechaEntrega }}</p>
+          <h2>{{ pedido.fechaPedido | date:'dd/MM/yyyy' }}</h2>
+          <p>{{ pedido.fechaEntrega | date:'dd/MM/yyyy' }}</p>
         </ion-label>
       </ion-item>
       <ion-item-options>
